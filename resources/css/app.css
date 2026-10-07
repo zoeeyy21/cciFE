@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&display=swap');
+
+@import "tailwindcss";
+
+/* Mode gelap dikendalikan class .dark pada <html> (disetel skrip sebelum paint) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ───────────────────────────────────────────────────────────
+     FRIENDLY WARM — peach hangat + sage teal + honey di atas krem.
+     Palet sengaja dipilih agar kontras tetap ramah aksesibilitas:
+     teks aksen ≥4.4:1 dan teks tombol putih ≥5.9:1 pada permukaan gelap.
+     ─────────────────────────────────────────────────────────── */
+
+  /* Fonts */
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* Primary: Warm Peach (lembut, hangat, ramah anak — tidak menyilaukan) */
+  --color-primary-50: #fdf1ea;
+  --color-primary-100: #fbe3d4;
+  --color-primary-200: #f6c9ae;
+  --color-primary-300: #efa97f;
+  --color-primary-400: #e78a5c;
+  --color-primary-500: #d15f34;
+  --color-primary-600: #c4552e;
+  --color-primary-700: #a8431f;
+  --color-primary-800: #8a361c;
+  --color-primary-900: #6e2c16;
+
+  /* Forest / Sage Teal (Trust & Stability — lebih cerah & segar) */
+  --color-forest-50: #effaf6;
+  --color-forest-100: #d6f2e3;
+  --color-forest-200: #b0e6cd;
+  --color-forest-500: #2f9e78;
+  --color-forest-700: #0e7a63;
+  --color-forest-800: #0b5a49;
+  --color-forest-900: #093f33;
+  --color-forest-950: #062a22;
+
+  /* Sun Accent (Honey — lembut, tidak mengkilat) */
+  --color-sun-50: #fef9e7;
+  --color-sun-100: #fdf1cc;
+  --color-sun-200: #fae3a4;
+  --color-sun-300: #f8ce4e;
+  --color-sun-400: #f0b429;
+  --color-sun-500: #de9a0e;
+  --color-sun-600: #b97c07;
+
+  /* ── Natural Canvas Backgrounds (lebih hangat & lembut) ── */
+  --color-paper: #fdfbf6;      /* krem hangat terang */
+  --color-paper-light: #ffffff;
+  --color-paper-warm: #f7f2ea; /* krem sedikit lebih gelap utk band */
+  --color-ink: #26201d;        /* coklat-tua hangat, bukan hitam pekat */
+  --color-ink-muted: #6b645c;  /* ⬆ terang dari #6b645c → kontras 5.6:1 */
+  --color-ink-light: #948b7e;  /* ⬆ terang agar tetap baca di krem */
+
+  /* Permukaan & garis (dibaca dari token agar tema bisa berganti) */
+  --color-surface: #ffffff;
+  --color-line: oklch(92.3% 0.003 48.717);
+  --color-line-soft: oklch(97% 0.001 106.424);
+  --color-line-strong: oklch(86.9% 0.005 56.366);
+  --color-toggle-bg: rgba(255, 255, 255, 0.62);
+  --color-block: oklch(97% 0.001 106.424);
+
+  /* Aksen yang dipakai sebagai TEKS — sedikit diredam agar lembut,
+     kontras ≥4.4:1 pada krem & ≥4.5:1 pada putih. */
+  --color-accent-primary: #b24b2b;
+  --color-accent-forest: #0e7a63;
+  --color-accent-sun: #9a6406;
+
+  /* Permukaan lembut / chip brand — pastel cerah */
+  --color-tint-primary: #f9e5d8;
+  --color-tint-primary-line: #f6d9c6;
+  --color-tint-forest: #e3f5ec;
+  --color-tint-forest-2: #d6f2e3;
+  --color-tint-forest-line: #c3e8d5;
+  --color-tint-sun: #fef3d2;
+  --color-tint-sun-line: #fbe6b4;
+
+  /* Shadows — lebih hangat & lembut (tidak tajam) */
+  --shadow-warm-sm: 0 1px 3px -1px rgba(38, 32, 29, 0.07), 0 1px 2px rgba(38, 32, 29, 0.04);
+  --shadow-warm: 0 8px 28px -8px rgba(110, 44, 22, 0.14), 0 3px 10px -3px rgba(38, 32, 29, 0.05);
+  --shadow-warm-lg: 0 18px 42px -12px rgba(110, 44, 22, 0.20), 0 6px 14px -4px rgba(38, 32, 29, 0.06);
+  --shadow-glow-primary: 0 0 28px -6px rgba(209, 95, 52, 0.38);
+  --shadow-glow-sun: 0 0 28px -6px rgba(240, 180, 41, 0.38);
+  --shadow-bottom-bar: 0 -2px 18px rgba(38, 32, 29, 0.06);
+
+  /* Keyframe animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes pulseSlow {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pulse-slow: pulseSlow 3s ease-in-out infinite;
+}
+
+/* ── Base Styles ────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  /* Prevent horizontal scroll on small devices */
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* Safe padding for bottom nav on mobile */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+::selection {
+  background-color: var(--color-primary-300);
+  color: #26201d;
+}
+
+/* ── Tema Terang (default) ──────────────────────────────── */
+:root {
+  --glass-bg: rgba(253, 251, 246, 0.9);
+  --glass-border: rgba(224, 216, 203, 0.7);
+  --glass-bar-bg: rgba(255, 255, 255, 0.94);
+  --glass-bar-border: rgba(230, 222, 210, 0.8);
+  --glass-card-bg: rgba(255, 255, 255, 0.85);
+  --glass-card-border: rgba(240, 235, 226, 0.8);
+  --shadow-warm: 0 8px 28px -8px rgba(110, 44, 22, 0.14), 0 3px 10px -3px rgba(38, 32, 29, 0.05);
+  --shadow-warm-lg: 0 18px 42px -12px rgba(110, 44, 22, 0.20), 0 6px 14px -4px rgba(38, 32, 29, 0.06);
+  color-scheme: light;
+}
+
+/* ── Tema Gelap ─────────────────────────────────────────── */
+.dark {
+  --color-paper: #131816;     /* sedikit lebih hangat */
+  --color-paper-warm: #1a211d;
+  --color-ink: #f1efe9;
+  --color-ink-muted: #c0b9ae; /* ⬆ terang agar kontras aman di surface gelap */
+  --color-ink-light: #9d968a; /* ⬆ terang */
+
+  --color-surface: #1c2420;
+  --color-line: #2b332e;
+  --color-line-soft: #232b26;
+  --color-line-strong: #3a443d;
+  --color-toggle-bg: rgba(255, 255, 255, 0.09);
+  --color-block: #232b26;
+  --color-divider: #2b332e;
+
+  /* Aksen diterangkan agar tetap lolos kontras di atas permukaan gelap */
+  --color-accent-primary: #ff9f7d;
+  --color-accent-forest: #4bd3a6;
+  --color-accent-sun: #f2b23e;
+
+  --color-tint-primary: rgba(209, 95, 52, 0.15);
+  --color-tint-primary-line: rgba(209, 95, 52, 0.3);
+  --color-tint-forest: rgba(47, 158, 120, 0.13);
+  --color-tint-forest-2: rgba(47, 158, 120, 0.22);
+  --color-tint-forest-line: rgba(47, 158, 120, 0.28);
+  --color-tint-sun: rgba(240, 180, 41, 0.14);
+  --color-tint-sun-line: rgba(240, 180, 41, 0.3);
+
+  --glass-bg: rgba(19, 24, 22, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-bar-bg: rgba(21, 27, 24, 0.94);
+  --glass-bar-border: rgba(255, 255, 255, 0.08);
+  --glass-card-bg: rgba(28, 36, 32, 0.88);
+  --glass-card-border: rgba(255, 255, 255, 0.08);
+
+  --shadow-warm: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3);
+  --shadow-warm-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 8px 16px -4px rgba(0, 0, 0, 0.4);
+  --shadow-bottom-bar: 0 -4px 20px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+/* Panel hero/brand tetap gelap di kedua tema — jangan ikut dibalik */
+.dark .gradient-hero,
+.dark [class*="bg-forest-8"],
+.dark [class*="bg-forest-9"] {
+  --color-ink: #f0efe9;
+  --color-ink-muted: #a8a29a;
+}
+
+/* Peralihan halus saat tema berganti */
+body,
+.glass-nav,
+.glass-bottom-bar,
+.glass-card,
+.bento-card {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+/* Mode gelap: foto sedikit diredupkan agar tidak menyilaukan */
+.dark img:not([src*="data:"]) {
+  filter: brightness(0.92);
+}
+
+/* ── Fokus keyboard & mobile — ramah aksesibilitas ────────── */
+/* Cincin fokus lembut & konsisten di seluruh interaktif (sebelumnya hanya input) */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(209, 95, 52, 0.28);
+  border-radius: 9999px;
+}
+.dark a:focus-visible,
+.dark button:focus-visible,
+.dark summary:focus-visible,
+.dark [tabindex]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 159, 125, 0.32);
+}
+/* Hapus border-radius pelengkap untuk elemen kotak (kartu/panel) */
+.bento-card:focus-visible,
+.glass-card:focus-visible,
+.rounded-3xl:focus-visible,
+[class*="rounded-2xl"]:focus-visible,
+[class*="rounded-3xl"]:focus-visible {
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── Custom Component Classes ───────────────────────────── */
+
+/* Glass pill / card effects */
+.glass-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-bottom-bar {
+  background: var(--glass-bar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-bar-border);
+  box-shadow: var(--shadow-bottom-bar);
+}
+
+.glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-card-border);
+}
+
+/* Buttons - Mobile Touch Friendly (Min 44px height) */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  min-height: 46px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #c4552e 0%, #8a361c 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px -2px rgba(110, 44, 22, 0.3);
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(110, 44, 22, 0.4);
+  color: #ffffff;
+}
+
+.btn-forest {
+  background: linear-gradient(135deg, #0e7a63 0%, #093f33 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px -2px rgba(11, 90, 73, 0.28);
+}
+.btn-forest:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(11, 90, 73, 0.38);
+  color: #ffffff;
+}
+
+.btn-sun {
+  background: linear-gradient(135deg, #f0b429 0%, #de9a0e 100%);
+  color: #26201d;
+  box-shadow: 0 4px 12px -2px rgba(190, 124, 7, 0.28);
+}
+.btn-sun:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px rgba(190, 124, 7, 0.38);
+}
+
+.btn-outline {
+  border: 1.5px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+  background: transparent;
+  color: var(--color-ink);
+}
+.btn-outline:hover {
+  border-color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-accent-primary) 8%, transparent);
+  color: var(--color-accent-primary);
+}
+
+.btn-outline-white {
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255,  0.2);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* Bento Card Style */
+.bento-card {
+  /* background-color (BUKAN shorthand background) agar utility gradient
+     Tailwind tetap bisa menggantikan warna permukaan. Kalau pakai
+     shorthand, background-image ter-reset ke none dan kartu gelap
+     (dari from-forest-900 dst.) jadi putih — teks putih tak terbaca. */
+  background-color: var(--color-surface);
+  border-radius:  1.5rem;
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-warm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+}
+@media (min-width: 640px) {
+  .bento-card {
+    border-radius: 1.75rem;
+  }
+}
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-warm-lg);
+  border-color: rgba(209, 95, 52, 0.32);
+}
+
+/* Badge tag */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Form controls (16px font to stop iOS zoom on focus) */
+.input-premium {
+  width:  100%;
+  border-radius: 1rem;
+  border: 1.5px solid var(--color-line);
+  background-color: var(--color-surface);
+  padding: 0.875rem 1.125rem;
+  font-size: 1rem; /* 16px prevents iOS Safari auto-zoom */
+  color: var(--color-ink);
+  outline: none;
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+@media (min-width: 640px) {
+  .input-premium {
+    font-size: 0.9375rem;
+  }
+}
+.input-premium:focus {
+  border-color: #d15f34;
+  box-shadow: 0 0 0 4px rgba(209, 95,  52, 0.14);
+}
+
+/* Mobile tap highlights */
+button, a, input, select, textarea {
+  -webkit-tap-highlight-color: rgba(209, 95, 52, 0.1);
+}
