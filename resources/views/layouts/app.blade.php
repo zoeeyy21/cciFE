@@ -18,7 +18,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <title>{{ $title ?? $site['name'] }} — Menerangi Masa Depan Anak</title>
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @php
+    $manifestPath = public_path('build/manifest.json');
+    $cssFile = null;
+    $jsFile = null;
+    if (file_exists($manifestPath)) {
+        $manifest = json_decode(file_get_contents($manifestPath), true);
+        $cssFile = $manifest['resources/css/app.css']['file'] ?? null;
+        $jsFile = $manifest['resources/js/app.js']['file'] ?? null;
+    }
+  @endphp
+  @if($cssFile && $jsFile)
+    <link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}">
+    <script type="module" src="{{ asset('build/' . $jsFile) }}"></script>
+  @else
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @endif
 </head>
 <body class="bg-paper text-ink selection:bg-primary-500 selection:text-white antialiased flex flex-col min-h-screen">
 
