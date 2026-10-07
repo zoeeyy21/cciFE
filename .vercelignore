@@ -1,8 +1,0 @@
-.env
-.git
-.github
-node_modules
-tests
-storage/*.key
-storage/oauth-*.key
-/vendor
