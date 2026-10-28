@@ -127,8 +127,7 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-12 sm:mb-16">
       <div>
-        <span class="badge-pill bg-tint-forest text-accent-forest border border-tint-forest-line text-[10px] sm:text-xs">Fokus Gerakan</span>
-        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink mt-2.5 sm:mt-3 tracking-tight">3 Pilar Utama Perubahan</h2>
+        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink tracking-tight">3 Pilar Utama Perubahan</h2>
       </div>
       <p class="text-ink-muted text-xs sm:text-sm max-w-md leading-relaxed">
         Intervensi yang dirancang secara holistik demi membangun kemandirian anak dan keluarga dalam jangka panjang.
@@ -183,8 +182,7 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between mb-10 sm:mb-12 flex-wrap gap-4">
       <div>
-        <span class="badge-pill bg-tint-primary text-accent-primary border border-tint-primary-line text-[10px] sm:text-xs">Bantuan Berkelanjutan</span>
-        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink mt-2 sm:mt-2.5 tracking-tight">Program Yang Sedang Berjalan</h2>
+        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink tracking-tight">Program Yang Sedang Berjalan</h2>
       </div>
       <a href="{{ url('/program') }}" class="btn-pill btn-outline !py-2 sm:!py-2.5 !px-4 text-xs font-bold">
         Lihat Semua Program &rarr;
@@ -200,8 +198,8 @@
                 <img src="{{ asset('storage/'.$prog->image) }}" alt="{{ $prog->name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"/>
               </div>
             @else
-              <div class="h-44 sm:h-48 bg-gradient-to-tr from-forest-800 to-forest-900 flex items-center justify-center text-white/40">
-                <span class="font-serif text-2xl sm:text-3xl font-bold">Pelita</span>
+              <div class="h-44 sm:h-48 bg-gradient-to-tr from-forest-800 to-forest-900 flex items-center justify-center p-4">
+                <img src="{{ asset('images/logo-icon.png') }}" alt="Pelita Bahagia" class="w-12 h-12 object-contain drop-shadow" />
               </div>
             @endif
             <div class="p-5 sm:p-6">
@@ -250,15 +248,19 @@
       <blockquote class="font-serif text-xl sm:text-3xl md:text-4xl font-normal leading-relaxed text-ink px-2">
         "{{ $site['quote']['text'] }}"
       </blockquote>
-      <div class="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sun-400 to-primary-500 text-white flex items-center justify-center font-bold font-serif text-sm shadow-warm-sm">
-          {{ strtoupper(substr($site['quote']['author'] ?? 'P', 0, 1)) }}
+      @if(!empty($site['quote']['author']))
+        <div class="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sun-400 to-primary-500 text-white flex items-center justify-center font-bold font-serif text-sm shadow-warm-sm">
+            {{ strtoupper(substr($site['quote']['author'] ?? 'P', 0, 1)) }}
+          </div>
+          <div class="text-left">
+            <p class="font-serif font-bold text-sm sm:text-base text-ink">{{ $site['quote']['author'] }}</p>
+            @if(!empty($site['quote']['role']))
+              <p class="text-[11px] sm:text-xs text-ink-muted">{{ $site['quote']['role'] }}</p>
+            @endif
+          </div>
         </div>
-        <div class="text-left">
-          <p class="font-serif font-bold text-sm sm:text-base text-ink">{{ $site['quote']['author'] }}</p>
-          <p class="text-[11px] sm:text-xs text-ink-muted">{{ $site['quote']['role'] }}</p>
-        </div>
-      </div>
+      @endif
     @else
       <blockquote class="font-serif text-lg sm:text-2xl font-normal leading-relaxed text-ink-muted px-2">
         Kutipan inspirasi belum diisi — lengkapi pada <span class="font-mono text-xs text-accent-primary">resources/data/site.php</span>
@@ -272,11 +274,10 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between mb-10 sm:mb-12 flex-wrap gap-4">
       <div>
-        <span class="badge-pill bg-tint-sun text-accent-sun border border-tint-sun-line text-[10px] sm:text-xs">Dokumentasi Aksi</span>
-        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink mt-2 sm:mt-2.5 tracking-tight">Kabar & Catatan Lapangan</h2>
+        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink tracking-tight">Kegiatan</h2>
       </div>
       <a href="{{ url('/kegiatan') }}" class="btn-pill btn-outline !py-2 sm:!py-2.5 !px-4 text-xs font-bold">
-        Semua Berita &rarr;
+        Semua Kegiatan &rarr;
       </a>
     </div>
 
@@ -294,10 +295,21 @@
               </div>
             @endif
             <div class="p-5 sm:p-6">
-              <span class="text-[10px] sm:text-[11px] font-semibold text-ink-muted">{{ \Carbon\Carbon::parse($act->date)->format('d F Y') }}</span>
-              <h3 class="font-serif font-bold text-base sm:text-lg text-ink mt-1.5 group-hover:text-accent-primary transition-colors">
+              <div class="mb-2">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-tint-primary text-accent-primary border border-tint-primary-line">
+                  {{ $act->program_name ?: 'Program Aksi' }}
+                </span>
+              </div>
+              <h3 class="font-serif font-bold text-base sm:text-lg text-ink group-hover:text-accent-primary transition-colors line-clamp-2">
                 {{ $act->title }}
               </h3>
+              <div class="flex items-center gap-2 text-[11px] text-ink-muted mt-2 pt-2 border-t border-line-soft">
+                <span>{{ \Carbon\Carbon::parse($act->date)->format('d M Y') }}</span>
+                @if(!empty($act->location))
+                  <span>•</span>
+                  <span>{{ $act->location }}</span>
+                @endif
+              </div>
               <p class="text-xs text-ink-muted mt-2 line-clamp-2 leading-relaxed">
                 {{ $act->summary }}
               </p>

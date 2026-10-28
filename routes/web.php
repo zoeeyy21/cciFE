@@ -147,8 +147,9 @@ function cciProgram(array $p): object
         'description' => '',
         'goal'        => '',
         'target'      => '',
-        'status'      => '',
-        'category'    => '',
+        'status'      => 'Aktif',
+        'category'    => 'Pendidikan',
+        'period'      => 'Periode 2026',
         'image'       => null,
     ], $p);
 }
@@ -157,12 +158,14 @@ function cciProgram(array $p): object
 function cciActivity(array $a): object
 {
     return (object) array_merge([
-        'title'   => '',
-        'slug'    => '',
-        'date'    => null,
-        'summary' => '',
-        'content' => '',
-        'cover'   => null,
+        'title'        => '',
+        'slug'         => '',
+        'date'         => null,
+        'location'     => 'Nusa Tenggara Timur',
+        'program_name' => 'Program Aksi',
+        'summary'      => '',
+        'content'      => '',
+        'cover'        => null,
     ], $a);
 }
 
@@ -170,8 +173,9 @@ function cciActivity(array $a): object
 function cciGallery(array $g): object
 {
     return (object) array_merge([
-        'image'   => null,
-        'caption' => '',
+        'image'          => null,
+        'activity_title' => 'Dokumentasi Lapangan',
+        'caption'        => '',
     ], $g);
 }
 

@@ -25,10 +25,6 @@
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="text-center max-w-3xl mx-auto">
-      <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-line/80 shadow-warm-sm mb-4">
-        <span class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
-        <span class="text-[10px] sm:text-xs font-bold text-ink uppercase tracking-widest">Jelajahi Galang Dana</span>
-      </div>
       <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-[1.15]">
         Pilih Kebaikan <br class="sm:hidden"/>
         <span class="italic text-accent-primary underline decoration-sun-300 decoration-wavy decoration-2">yang Ingin Kamu Tumbuhkan</span>

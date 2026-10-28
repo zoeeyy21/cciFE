@@ -59,8 +59,8 @@ return [
     // Kosongkan 'text' untuk menyembunyikan blok ini dari beranda.
     'quote' => [
         'text'   => 'Melihat binar mata anak-anak memegang buku baru adalah alasan kami terus bergerak. Setiap donasi adalah pelita yang tidak akan pernah padam.',
-        'author' => 'Rizky Amanda',
-        'role'   => 'Ketua Relawan Yayasan Pelita Bahagia',
+        'author' => '',
+        'role'   => '',
     ],
 
     // ── KISAH YAYASAN (halaman Tentang) ───────────────────────────────────

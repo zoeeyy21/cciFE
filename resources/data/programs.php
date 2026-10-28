@@ -4,6 +4,17 @@
 |--------------------------------------------------------------------------|
 | DATA PROGRAM                                                             |
 |--------------------------------------------------------------------------|
+| Struktur tiap program:
+|   'name'        (wajib)   Nama program
+|   'slug'        (wajib)   Slug URL unik
+|   'summary'     (wajib)   Ringkasan singkat untuk kartu
+|   'description' (opsional)Uraian panjang format HTML
+|   'goal'        (opsional)Target capaian untuk halaman detail
+|   'target'      (opsional)Sasaran penerima manfaat
+|   'status'      (wajib)   'Aktif' atau 'Non-Aktif' (Selesai)
+|   'category'    (wajib)   Pendidikan, Kesehatan, Pemberdayaan, Tanggap Bencana, dll.
+|   'period'      (wajib)   Periode pelaksanaan (mis. 'Periode 2026', '2025–2026')
+|   'image'       (opsional)File gambar di storage/app/public/programs/
 */
 
 return [
@@ -18,6 +29,7 @@ return [
         'target'      => 'Anak usia 6–15 tahun dari keluarga pra-sejahtera',
         'status'      => 'Aktif',
         'category'    => 'Pendidikan',
+        'period'      => 'Periode 2026',
         'image'       => 'programs/beasiswa-cerdas-pelosok.jpg',
     ],
 
@@ -30,6 +42,7 @@ return [
         'target'      => 'Sekolah dasar di 6 desa pedalaman Sumba',
         'status'      => 'Aktif',
         'category'    => 'Pendidikan',
+        'period'      => '2025–2026',
         'image'       => 'programs/ruang-belajar-cerah.jpg',
     ],
 
@@ -43,6 +56,7 @@ return [
         'target'      => 'Balita usia 6–24 bulan di 8 desa prioritas',
         'status'      => 'Aktif',
         'category'    => 'Kesehatan',
+        'period'      => 'Periode 2026',
         'image'       => 'programs/piring-bergizi-anti-stunting.jpg',
     ],
 
@@ -55,6 +69,7 @@ return [
         'target'      => 'Warga desa terpencil di Kabupaten Sumba Barat',
         'status'      => 'Aktif',
         'category'    => 'Kesehatan',
+        'period'      => '2025–2026',
         'image'       => 'programs/balai-sehat-desa.jpg',
     ],
 
@@ -68,6 +83,7 @@ return [
         'target'      => 'Ibu tunggal kepala keluarga di Sumba Timur',
         'status'      => 'Aktif',
         'category'    => 'Pemberdayaan',
+        'period'      => 'Periode 2026',
         'image'       => 'programs/ibu-tangguh-ekonomi.jpg',
     ],
 
@@ -78,9 +94,63 @@ return [
         'description' => '<p>Program Tanggap Bencana menyediakan stok logistik darurat berupa tenda, tikar, perlengkapan dapur umum, dan air bersih di titik-titik pengungsian strategis. Tim relawan dilatih evakuasi dan distribusi cepat dalam 24 jam pertama setelah bencana.</p><p>Posko siaga dijalankan bersama BPBD dan karang taruna setempat.</p>',
         'goal'        => 'Pos Siaga di 10 Titik Pengungsian',
         'target'      => 'Wilayah rawan banjir dan gempa di NTT',
-        'status'      => 'Siaga',
+        'status'      => 'Aktif',
         'category'    => 'Tanggap Bencana',
+        'period'      => 'Siaga 2026',
         'image'       => 'programs/tanggap-bencana-pelosok.jpg',
+    ],
+
+    [
+        'name'        => 'Bibit Harapan Tani Mandiri',
+        'slug'        => 'bibit-harapan-tani-mandiri',
+        'summary'     => 'Pemberian bibit jagung unggul dan pupuk organik bagi 80 kepala keluarga petani lahan kering Sumba.',
+        'description' => '<p>Mendukung ketahanan pangan keluarga anak asuh melalui penyediaan benih bersertifikat dan instalasi penampungan air hujan untuk sistem irigasi tetes skala rumah tangga.</p>',
+        'goal'        => '80 Keluarga Petani Berdaya',
+        'target'      => 'Petani subsisten di wilayah Sumba Tengah',
+        'status'      => 'Aktif',
+        'category'    => 'Pemberdayaan',
+        'period'      => 'Periode 2026',
+        'image'       => null,
+    ],
+
+    // ── Program Selesai / Non-Aktif ─────────────────────────────────────
+    [
+        'name'        => 'Akses Air Bersih & Sanitasi Desa',
+        'slug'        => 'akses-air-bersih-sanitasi-desa',
+        'summary'     => 'Pembangunan 4 sumur bor dan fasilitas MCK komunal higienis di desa pesisir rawan kekeringan.',
+        'description' => '<p>Program ini berhasil diselesaikan pada akhir tahun 2025 dan kini dikelola mandiri secara berkelanjutan oleh himpunan pemuda desa setempat.</p>',
+        'goal'        => '4 Titik Sumur Bor Tuntas',
+        'target'      => '600 Warga desa pesisir NTT',
+        'status'      => 'Non-Aktif',
+        'category'    => 'Infrastruktur',
+        'period'      => 'Periode 2024–2025',
+        'image'       => null,
+    ],
+
+    [
+        'name'        => 'Literasi Digital Guru Pedalaman',
+        'slug'        => 'literasi-digital-guru-pedalaman',
+        'summary'     => 'Pelatihan komputer dasar dan media ajar interaktif untuk 45 guru honorer di sekolah pelosok.',
+        'description' => '<p>Seluruh sesi pelatihan modul 1 s.d. 4 telah selesai dilaksanakan dengan tingkat kelulusan sertifikasi 100%.</p>',
+        'goal'        => '45 Guru Honorer Bersertifikat',
+        'target'      => 'Guru SD dan SMP di wilayah perbatasan',
+        'status'      => 'Non-Aktif',
+        'category'    => 'Pendidikan',
+        'period'      => 'Periode 2025',
+        'image'       => null,
+    ],
+
+    [
+        'name'        => 'Pos Gizi Balita Pesisir 2025',
+        'slug'        => 'pos-gizi-balita-pesisir-2025',
+        'summary'     => 'Intervensi nutrisi darurat 100 hari untuk 120 anak balita di kepulauan terluar Flores.',
+        'description' => '<p>Periode intervensi 100 hari selesai dengan hasil penurunan angka wasting sebesar 84% pada kelompok sasaran.</p>',
+        'goal'        => '120 Balita Lolos Wasting',
+        'target'      => 'Balita kepulauan Flores Timur',
+        'status'      => 'Non-Aktif',
+        'category'    => 'Kesehatan',
+        'period'      => 'Periode 2025',
+        'image'       => null,
     ],
 
 ];

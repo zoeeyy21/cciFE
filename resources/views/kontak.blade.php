@@ -5,8 +5,7 @@
 {{-- Header --}}
 <section class="pt-28 pb-16 bg-gradient-to-b from-paper-warm to-paper text-center">
   <div class="max-w-4xl mx-auto px-4 sm:px-6">
-    <span class="badge-pill bg-tint-forest text-accent-forest border border-tint-forest-line">Pusat Bantuan & Sinergi</span>
-    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-ink mt-4 tracking-tight">
+    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
       Hubungi <span class="italic text-accent-primary">{{ $site['short_name'] }}</span>
     </h1>
     <p class="mt-5 text-base sm:text-lg text-ink-muted leading-relaxed max-w-2xl mx-auto">

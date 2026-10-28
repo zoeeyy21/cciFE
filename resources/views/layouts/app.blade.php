@@ -17,6 +17,8 @@
   <meta name="description" content="{{ $metaDescription ?? ($site['description'] ?: $site['name'] . ' — Bersama Menerangi Masa Depan & Harapan Anak-Anak Indonesia') }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="{{ asset('images/logo-icon.png') }}" />
+  <link rel="apple-touch-icon" href="{{ asset('images/logo-icon.png') }}" />
   <title>{{ $title ?? $site['name'] }} — Menerangi Masa Depan Anak</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -26,15 +28,10 @@
   <header class="sticky top-2 sm:top-4 z-40 px-3 sm:px-6 pointer-events-none">
     <div class="max-w-6xl mx-auto pointer-events-auto">
     <nav class="glass-nav rounded-full px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between shadow-warm transition-all duration-300" id="main-nav">
-      {{-- Logo Brand --}}
-      <a href="{{ url('/') }}" class="flex items-center gap-2.5 sm:gap-3 group">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-serif font-bold text-lg sm:text-xl shadow-md transition-transform duration-300 group-hover:scale-105">
-          P
-        </div>
-        <div class="leading-none">
-          <span class="font-serif font-bold text-sm sm:text-base text-ink tracking-tight block">{{ $site['short_name'] }}</span>
-              <span class="text-[10px] sm:text-[11px] text-ink-muted font-medium tracking-wider uppercase block">{{ $site['tagline'] ?: 'Anak Nusantara' }}</span>
-        </div>
+      {{-- Logo Brand Resmi Pelita Bahagia --}}
+      <a href="{{ url('/') }}" class="flex items-center group py-0.5" aria-label="{{ $site['name'] }}">
+        <img src="{{ asset('images/logo.png') }}" alt="{{ $site['name'] }}" class="h-8 sm:h-9 w-auto dark:hidden transition-transform duration-300 group-hover:scale-105" />
+        <img src="{{ asset('images/logo-white.png') }}" alt="{{ $site['name'] }}" class="h-8 sm:h-9 w-auto hidden dark:block transition-transform duration-300 group-hover:scale-105" />
       </a>
 
       {{-- Desktop Navigation Links --}}
@@ -136,8 +133,8 @@
     @yield('content')
   </main>
 
-  {{-- Footer Bento Layout --}}
-  <footer class="bg-forest-950 text-forest-100 pt-16 sm:pt-20 pb-24 md:pb-12 border-t border-forest-900 relative overflow-hidden mt-16 sm:mt-20">
+  {{-- Footer Bento Layout (Menyatu tanpa sekat visual kaku) --}}
+  <footer class="bg-forest-950 text-forest-100 pt-16 sm:pt-20 pb-24 md:pb-12 relative overflow-hidden">
     {{-- Ambient Glow Orbs --}}
     <div class="absolute -top-32 left-1/4 w-96 h-96 rounded-full bg-forest-800/20 blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-0 right-10 w-96 h-96 rounded-full bg-primary-600/10 blur-3xl pointer-events-none"></div>
@@ -147,15 +144,9 @@
       
       {{-- Brand Col --}}
       <div class="md:col-span-5 space-y-4 sm:space-y-6">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-serif font-bold text-xl sm:text-2xl shadow-glow-primary">
-            {{ strtoupper(substr($site['short_name'] ?: $site['name'], 0, 1)) }}
-          </div>
-          <div>
-            <h3 class="font-serif font-bold text-lg sm:text-xl text-white tracking-tight">{{ $site['short_name'] }}</h3>
-            <p class="text-[10px] sm:text-xs text-forest-200/70 uppercase tracking-widest font-semibold">{{ $site['tagline'] ?: 'Anak Nusantara' }}</p>
-          </div>
-        </div>
+        <a href="{{ url('/') }}" class="inline-block group" aria-label="{{ $site['name'] }}">
+          <img src="{{ asset('images/logo-white.png') }}" alt="{{ $site['name'] }}" class="h-10 sm:h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
+        </a>
         <p class="text-forest-200/80 text-xs sm:text-sm leading-relaxed max-w-sm">
           {{ $site['description'] ?: 'Profil yayasan belum diisi — lengkapi pada resources/data/site.php' }}
         </p>

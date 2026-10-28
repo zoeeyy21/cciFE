@@ -249,40 +249,8 @@
                 </div>
               </div>
 
-              {{-- Metode --}}
-              <div class="pt-3 border-t border-line-soft">
-                <span class="block text-[11px] font-bold uppercase tracking-wider text-ink-muted mb-2">Metode Pembayaran</span>
-                <div class="grid grid-cols-2 gap-2">
-                  <label class="cursor-pointer">
-                    <input type="radio" name="payment_method" value="qris" class="peer sr-only" checked/>
-                    <div class="p-2.5 rounded-xl border border-line peer-checked:border-primary-500 peer-checked:bg-tint-primary/50 transition-all text-center min-h-[50px] flex flex-col justify-center">
-                      <span class="block text-[11px] font-bold text-ink">QRIS</span>
-                      <span class="block text-[9px] text-ink-muted">Gopay, OVO, Dana</span>
-                    </div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="payment_method" value="bca" class="peer sr-only"/>
-                    <div class="p-2.5 rounded-xl border border-line peer-checked:border-primary-500 peer-checked:bg-tint-primary/50 transition-all text-center min-h-[50px] flex flex-col justify-center">
-                      <span class="block text-[11px] font-bold text-ink">Bank BCA</span>
-                      <span class="block text-[9px] text-ink-muted">Virtual Account</span>
-                    </div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="payment_method" value="mandiri" class="peer sr-only"/>
-                    <div class="p-2.5 rounded-xl border border-line peer-checked:border-primary-500 peer-checked:bg-tint-primary/50 transition-all text-center min-h-[50px] flex flex-col justify-center">
-                      <span class="block text-[11px] font-bold text-ink">Mandiri</span>
-                      <span class="block text-[9px] text-ink-muted">Virtual Account</span>
-                    </div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="payment_method" value="bri" class="peer sr-only"/>
-                    <div class="p-2.5 rounded-xl border border-line peer-checked:border-primary-500 peer-checked:bg-tint-primary/50 transition-all text-center min-h-[50px] flex flex-col justify-center">
-                      <span class="block text-[11px] font-bold text-ink">Bank BRI</span>
-                      <span class="block text-[9px] text-ink-muted">Virtual Account</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
+              {{-- METODE: Otomatis QRIS Instan --}}
+              <input type="hidden" name="payment_method" value="qris"/>
 
               <button type="submit" class="btn-pill btn-primary w-full !py-3.5 text-sm font-bold shadow-warm-lg flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -432,7 +400,18 @@
         setTimeout(() => copyText.textContent = 'Salin Tautan', 2000);
       }
     });
+
+    // Inisialisasi Modal QRIS Langsung
+    if (window.initQrisPayment) {
+      window.initQrisPayment(
+        '#inline-donation-form',
+        () => document.getElementById('inline-amount')?.value || 50000,
+        () => {!! json_encode($campaign['title'] ?? 'Donasi Pelita Bahagia') !!}
+      );
+    }
   });
 </script>
+
+@include('components.qris-modal')
 
 @endsection
