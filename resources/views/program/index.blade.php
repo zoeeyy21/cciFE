@@ -167,7 +167,7 @@
               <span>&rarr;</span>
             </a>
             <a 
-              href="{{ url('/donasi') }}" 
+              href="{{ url('/donasi/'.$program->slug) }}" 
               class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs font-semibold shadow-sm"
             >
               Dukung

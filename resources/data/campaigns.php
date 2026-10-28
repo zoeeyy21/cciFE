@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 | File ini adalah sumber data untuk halaman:
 |   - /donasi          (halaman jelajah kampanye)
-|   - /donasi/{slug}    (halaman detail kampanye)
+|   - /donasi/{slug}    (halaman detail kampanye & form donasi)
 |   - /donasi/form      (dropdown pilihan peruntukan dana)
 |
 | Struktur tiap kampanye:
@@ -23,15 +23,7 @@
 |   'urgent'       (wajib)  true = tampil badge "Mendesak" & diprioritaskan. false = biasa
 |   'verified'     (wajib)  true = tampil badge "Terverifikasi"
 |   'story'        (wajib)  Array paragraf untuk "Cerita Lengkap" di halaman detail
-|   'image'        (opsional) Path gambar di storage, contoh: 'campaigns/dede.jpg'
-|                             (file fisik di storage/app/public/campaigns/dede.jpg)
-|                             Jika kosong, kartu memakai gradien warna otomatis sesuai kategori.
-|
-| Catatan penting:
-|   - Angka 'raised', 'target', 'donors', 'days_left' ditulis sebagai angka murni
-|     (tanpa tanda kutip, tanpa titik/koma) agar bisa dihitung otomatis.
-|   - Persentase progres dihitung otomatis dari raised / target.
-|   - 'slug' harus unik — dipakai sebagai alamat halaman detail.
+|   'image'        (opsional) Path gambar di storage
 */
 
 return [
@@ -58,7 +50,160 @@ return [
         ],
     ],
 
-    // ── PENDIDIKAN ────────────────────────────────────────────────────────
+    // ── PROGRAM PENDIDIKAN 1 ──────────────────────────────────────────────
+    [
+        'slug'         => 'beasiswa-cerdas-pelosok',
+        'title'        => 'Beasiswa Cerdas Pelosok untuk 250 Anak NTT',
+        'summary'      => 'Beasiswa SPP, buku, dan seragam untuk 250 anak pra-sejahtera di pelosok Nusa Tenggara Timur agar tetap dapat bersekolah.',
+        'category'     => 'pendidikan',
+        'organization' => 'Tim Pendidikan Pelita Bahagia',
+        'location'     => 'Timor Tengah Selatan, NTT',
+        'raised'       => 45200000,
+        'target'       => 60000000,
+        'donors'       => 846,
+        'days_left'    => 21,
+        'urgent'       => false,
+        'verified'     => true,
+        'image'        => 'programs/beasiswa-cerdas-pelosok.jpg',
+        'story'        => [
+            'Di desa-desa pedalaman Nusa Tenggara Timur, ratusan anak berprestasi dari keluarga pra-sejahtera terancam putus sekolah karena keterbatasan biaya perlengkapan dan seragam.',
+            'Program Beasiswa Cerdas Pelosok memastikan 250 anak mendapatkan dukungan SPP, paket buku, dan seragam layak selama 1 tahun ajaran penuh.',
+            'Laporan penyaluran donasi dan rapor perkembangan belajar anak dikirimkan secara transparan kepada para donatur setiap semester.',
+        ],
+    ],
+
+    // ── PROGRAM PENDIDIKAN 2 ──────────────────────────────────────────────
+    [
+        'slug'         => 'ruang-belajar-cerah',
+        'title'        => 'Renovasi 12 Ruang Belajar Cerah Pedalaman Sumba',
+        'summary'      => 'Renovasi 12 ruang kelas usang di sekolah pedalaman Sumba lengkap dengan penyediaan 300+ sudut buku bacaan berkualitas.',
+        'category'     => 'pendidikan',
+        'organization' => 'Tim Pendidikan Pelita Bahagia',
+        'location'     => 'Sumba Tengah, NTT',
+        'raised'       => 38400000,
+        'target'       => 50000000,
+        'donors'       => 615,
+        'days_left'    => 28,
+        'urgent'       => false,
+        'verified'     => true,
+        'image'        => 'programs/ruang-belajar-cerah.jpg',
+        'story'        => [
+            'Banyak ruang kelas di sekolah pedalaman Sumba dalam kondisi rusak berat — atap seng bocor saat musim hujan, lantai berdebu, dan minim penerangan.',
+            'Melalui renovasi Ruang Belajar Cerah, kami memperbaiki fasilitas fisik sekolah agar aman dan menghadirkan pojok baca anak dengan ratusan buku edukatif.',
+            'Donasi Anda dialokasikan untuk material bangunan, meja-kursi belajar baru, dan buku bacaan anak.',
+        ],
+    ],
+
+    // ── PROGRAM KESEHATAN 1 ───────────────────────────────────────────────
+    [
+        'slug'         => 'piring-bergizi-anti-stunting',
+        'title'        => 'Piring Bergizi Anti-Stunting untuk 400 Balita NTT',
+        'summary'      => 'Paket makanan bergizi harian dan susu untuk 400 balita di 8 desa endemik stunting Nusa Tenggara Timur.',
+        'category'     => 'kesehatan',
+        'organization' => 'Tim Gizi Pelita Bahagia',
+        'location'     => 'Kabupaten Rote Ndao, NTT',
+        'raised'       => 23500000,
+        'target'       => 37500000,
+        'donors'       => 512,
+        'days_left'    => 12,
+        'urgent'       => true,
+        'verified'     => true,
+        'image'        => 'programs/piring-bergizi-anti-stunting.jpg',
+        'story'        => [
+            'Angka stunting di wilayah pelosok NTT masih memerlukan perhatian serius. Balita kekurangan asupan protein hewani dan zat gizi mikro esensial pada 1.000 hari pertama kehidupan.',
+            'Kampanye Piring Bergizi menyalurkan paket makanan bergizi (telur, susu, ikan, dan kacang-kacangan) setiap hari untuk 400 balita yang dipantau langsung oleh kader posyandu.',
+            'Penimbangan berat badan dan pengukuran tinggi badan dilakukan berkala untuk memastikan penurunan angka stunting nyata.',
+        ],
+    ],
+
+    // ── PROGRAM KESEHATAN 2 ───────────────────────────────────────────────
+    [
+        'slug'         => 'balai-sehat-desa',
+        'title'        => 'Operasional Balai Sehat Desa untuk 1.000 Warga Pelosok',
+        'summary'      => 'Pemeriksaan medis gratis, USG ibu hamil, dan obat-obatan untuk 1.000 warga desa yang jangkauan puskesmasnya lebih dari 3 jam perjalanan.',
+        'category'     => 'kesehatan',
+        'organization' => 'Tim Medis Pelita Bahagia',
+        'location'     => 'Belu, NTT',
+        'raised'       => 11200000,
+        'target'       => 45000000,
+        'donors'       => 289,
+        'days_left'    => 38,
+        'urgent'       => false,
+        'verified'     => true,
+        'image'        => 'programs/balai-sehat-desa.jpg',
+        'story'        => [
+            'Warga desa pelosok di Kabupaten Belu harus menempuh jalan berbatu terjal berjam-jam hanya untuk memeriksakan demam atau memeriksa kandungan.',
+            'Balai Sehat Desa menghadirkan dokter dan perawat relawan langsung ke pintu rumah warga dengan obat-obatan dasar dan alat diagnostik lengkap.',
+            'Dukungan Anda membantu penyediaan obat gratis, vitamin anak, dan biaya operasional tim medis lapangan.',
+        ],
+    ],
+
+    // ── PROGRAM PEMBERDAYAAN ──────────────────────────────────────────────
+    [
+        'slug'         => 'ibu-tangguh-ekonomi',
+        'title'        => 'Modal Usaha Mandiri untuk 120 Ibu Tangguh Sumba',
+        'summary'      => 'Pelatihan kewirausahaan, alat jahit, dan modal usaha awal untuk 120 ibu single parent di Sumba Timur agar mandiri menafkahi keluarga.',
+        'category'     => 'pemberdayaan',
+        'organization' => 'Tim Pemberdayaan Pelita Bahagia',
+        'location'     => 'Sumba Timur, NTT',
+        'raised'       => 18200000,
+        'target'       => 30000000,
+        'donors'       => 367,
+        'days_left'    => 35,
+        'urgent'       => false,
+        'verified'     => true,
+        'image'        => 'programs/ibu-tangguh-ekonomi.jpg',
+        'story'        => [
+            'Para ibu tunggal di pedalaman Sumba adalah tulang punggung keluarga yang gigih. Namun ketiadaan modal dan keahlian seringkali menjebak mereka dalam kemiskinan ekstrem.',
+            'Melalui program ini, setiap ibu mendapatkan pelatihan menjahit, mesin jahit baru, dan pendampingan pemasaran produk kerajinan tenun serta seragam lokal.',
+            'Dengan ekonomi keluarga yang mandiri, anak-anak mereka terjamin pendidikannya dan tidak perlu putus sekolah.',
+        ],
+    ],
+
+    // ── PROGRAM TANGGAP BENCANA ───────────────────────────────────────────
+    [
+        'slug'         => 'tanggap-bencana-pelosok',
+        'title'        => 'Pos Siaga & Tanggap Bencana Darurat Pelosok NTT',
+        'summary'      => 'Stok logistik darurat, tenda evakuasi, dan dapur umum siap pakai untuk wilayah rawan banjir bandang dan longsor.',
+        'category'     => 'bencana',
+        'organization' => 'Tim Tanggap Bencana Pelita Bahagia',
+        'location'     => 'Ende, NTT',
+        'raised'       => 9800000,
+        'target'       => 50000000,
+        'donors'       => 234,
+        'days_left'    => 7,
+        'urgent'       => true,
+        'verified'     => true,
+        'image'        => 'programs/tanggap-bencana-pelosok.jpg',
+        'story'        => [
+            'Banjir bandang dan cuaca ekstrem seringkali memutus akses jembatan antardesa di NTT, menyebabkan ratusan warga mengungsi tanpa makanan hangat dan pakaian kering.',
+            'Pos Siaga Bencana menyiapkan buffer stock tenda, selimut, air bersih, dan bahan makanan siap saji yang dapat dimobilisasi dalam 6 jam pertama bencana.',
+            'Bantuan disalurkan langsung oleh relawan terlatih bekerja sama dengan BPBD dan masyarakat setempat.',
+        ],
+    ],
+
+    // ── PROGRAM PEMBERDAYAAN TANI ─────────────────────────────────────────
+    [
+        'slug'         => 'bibit-harapan-tani-mandiri',
+        'title'        => 'Bibit Harapan & Ketahanan Tani Mandiri Sumba',
+        'summary'      => 'Pemberian benih jagung unggul tahan kekeringan dan pupuk organik untuk 80 keluarga petani lahan kering Sumba Tengah.',
+        'category'     => 'pemberdayaan',
+        'organization' => 'Tim Pemberdayaan Pelita Bahagia',
+        'location'     => 'Sumba Tengah, NTT',
+        'raised'       => 14500000,
+        'target'       => 25000000,
+        'donors'       => 198,
+        'days_left'    => 40,
+        'urgent'       => false,
+        'verified'     => true,
+        'image'        => null,
+        'story'        => [
+            'Pertanian lahan kering di Sumba sering mengalami gagal panen akibat kemarau panjang. Program ini memberikan bibit jagung bersertifikat tahan cuaca kering dan pelatihan pupuk kompos alami.',
+            'Hasil panen diprioritaskan untuk pemenuhan gizi keluarga anak asuh, dan sisanya dijual untuk tabungan biaya sekolah anak.',
+        ],
+    ],
+
+    // ── ALIAS / KAMPANYE TAMBAHAN ─────────────────────────────────────────
     [
         'slug'         => 'sepatu-baru-200-anak-pelosok',
         'title'        => 'Sepatu Baru untuk 200 Anak Pelosok Sumba',
@@ -75,79 +220,10 @@ return [
         'image'        => 'campaigns/sepatu-anak.jpg',
         'story'        => [
             'Di desa-desa pedalaman Sumba, banyak anak yang harus berjalan bermil-mil untuk sampai ke sekolah. Sepatu mereka sudah berlubang, solnya tipis menghadapi jalan berbatu.',
-            'Program ini menyalurkan sepatu baru yang layak untuk 200 anak, lengkap dengan kaos kaki dan perlengkapan sekolah dasar. Donasi yang terkumpul diserahkan langsung ke sekolah-sekolah mitra.',
-            'Setiap penyaluran didokumentasikan dengan foto dan daftar nama penerima yang dapat diaudit oleh publik.',
+            'Program ini menyalurkan sepatu baru yang layak untuk 200 anak, lengkap dengan kaos kaki dan perlengkapan sekolah dasar.',
         ],
     ],
 
-    // ── KESEHATAN ─────────────────────────────────────────────────────────
-    [
-        'slug'         => 'beras-pangan-50-keluarga',
-        'title'        => 'Pangan Bergizi untuk 50 Keluarga Pra-Sejahtera',
-        'summary'      => 'Setengah dari anak-anak di desa binaan kami kekurangan gizi seimbang. Bantu sediakan beras, telur, dan susu untuk 50 keluarga selama 3 bulan.',
-        'category'     => 'kesehatan',
-        'organization' => 'Tim Gizi Pelita Bahagia',
-        'location'     => 'Kabupaten Rote Ndao, NTT',
-        'rounded'      => 0,
-        'raised'       => 23500000,
-        'target'       => 37500000,
-        'donors'       => 512,
-        'days_left'    => 12,
-        'urgent'       => true,
-        'verified'     => true,
-        'image'        => 'campaigns/pangan-bergizi.jpg',
-        'story'        => [
-            'Di Kabupaten Rote Ndao, lebih dari setengah anak-anak di desa binaan tidak mendapatkan asupan gizi seimbang. Hal ini berdampak langsung pada kesehatan dan konsentrasi belajar mereka.',
-            'Kampanye ini menyediakan paket pangan bergizi — beras, telur, dan susu — untuk 50 keluarga selama 3 bulan penuh, disalurkan melalui posyandu mitra.',
-            'Laporan distribusi lengkap dengan foto dan rincian biaya akan dipublikasikan setiap bulan.',
-        ],
-    ],
-
-    // ── PEMBERDAYAAN ──────────────────────────────────────────────────────
-    [
-        'slug'         => 'kelas-jahit-ibu-single',
-        'title'        => 'Kelas Jahit untuk 30 Ibu Single Parent',
-        'summary'      => 'Bantu 30 ibu single parent di Sumba Timur mandiri secara finansial melalui pelatihan menjahit dan mesin jahit modal usaha.',
-        'category'     => 'pemberdayaan',
-        'organization' => 'Tim Pemberdayaan Pelita Bahagia',
-        'location'     => 'Sumba Timur, NTT',
-        'raised'       => 18200000,
-        'target'       => 30000000,
-        'donors'       => 367,
-        'days_left'    => 35,
-        'urgent'       => false,
-        'verified'     => true,
-        'image'        => 'campaigns/kelas-jahit.jpg',
-        'story'        => [
-            'Banyak ibu single parent di Sumba Timur bekerja sebagai buruh tani harian dengan penghasilan tidak menentu. Mereka ingin mandiri, tapi tidak punya keterampilan khusus.',
-            'Program ini memberikan pelatihan menjahit intensif selama 3 bulan, diikuti pemberian mesin jahit dan modal usaha awal bagi 30 peserta.',
-            'Setelah lulus, peserta memproduksi seragam sekolah dan pakaian adat yang dipasarkan melalui koperasi mitra.',
-        ],
-    ],
-
-    // ── BENCANA ───────────────────────────────────────────────────────────
-    [
-        'slug'         => 'sembako-korban-banjir-bandang',
-        'title'        => 'Sembako & Selimut untuk Korban Banjir Bandang',
-        'summary'      => 'Banjir bandang menerjang 3 desa di Ende. Ratusan kepala keluarga kehilangan rumah dan membutuhkan kebutuhan dasar segera.',
-        'category'     => 'bencana',
-        'organization' => 'Tim Tanggap Bencana Pelita Bahagia',
-        'location'     => 'Ende, NTT',
-        'raised'       => 9800000,
-        'target'       => 50000000,
-        'donors'       => 234,
-        'days_left'    => 7,
-        'urgent'       => true,
-        'verified'     => true,
-        'image'        => 'campaigns/banjir-ende.jpg',
-        'story'        => [
-            'Banjir bandang akibat hujan lebat berturut-turut menerjang 3 desa di Ende. Ratusan kepala keluarga kehilangan rumah, sawi, dan hewan ternak mereka.',
-            'Pengungsi menempati balai desa dan sekolah yang disulap jadi posko darurat. Kebutuhan paling mendesak adalah pangan, selimut, dan air bersih.',
-            'Tim relawan kami sudah berada di lokasi sejak 48 jam pertama. Donasi disalurkan langsung dalam bentuk kebutuhan dasar, bukan tunai, agar tepat sasaran.',
-        ],
-    ],
-
-    // ── PENDIDIKAN ────────────────────────────────────────────────────────
     [
         'slug'         => 'beasiswa-10-anak-juara',
         'title'        => 'Beasiswa 1 Tahun untuk 10 Anak Juara Pelosok',
@@ -162,33 +238,8 @@ return [
         'urgent'       => false,
         'verified'     => true,
         'image'        => 'campaigns/beasiswa-juara.jpg',
-        'engine'       => null,
         'story'        => [
-            'Mereka adalah anak-anak juara kelas, peraih medali olimpiade sains tingkat kabupaten, dan penulis cerpen berbakat. Tapi semua itu terancam berakhir karena biaya sekolah.',
-            'Beasiswa ini menutup SPP, buku, seragam, dan transportasi selama satu tahun ajaran penuh untuk 10 anak pilihan dari Timor Tengah Selatan.',
-            'Penerima dipilih bersama dinas pendidikan berdasarkan prestasi akademik dan kondisi ekonomi keluarga. Laporan progres akademik dikirim ke donatur tiap semester.',
-        ],
-    ],
-
-    // ── KESEHATAN ─────────────────────────────────────────────────────────
-    [
-        'slug'         => 'posyandu-renovasi-5-desa',
-        'title'        => 'Renovasi 5 Posyandu di Desa Terpencil',
-        'summary'      => 'Lima posyandu di desa terpencil sudah tidak layak untuk pemeriksaan ibu dan anak. Renovasi posyandu = layanan kesehatan lebih baik.',
-        'category'     => 'kesehatan',
-        'organization' => 'Tim Kesehatan Pelita Bahagia',
-        'location'     => 'Belu, NTT',
-        'raised'       => 11200000,
-        'target'       => 45000000,
-        'donors'       => 189,
-        'days_left'    => 42,
-        'urgent'       => false,
-        'verified'     => true,
-        'image'        => 'campaigns/posyandu.jpg',
-        'story'        => [
-            'Posyandu adalah benteng terdepan kesehatan ibu dan anak di desa. Tapi 5 posyandu mitra kami di Belu sudah rusak parah — atap bocor, lantai berlubang, tanpa timbangan yang layak.',
-            'Donasi dipakai untuk renovasi bangunan, pengadaan timbangan bayi, dan perlengkapan pemeriksaan kesehatan dasar.',
-            'Renovasi dilakukan bersama warga dan diawasi tim teknisi sukarela kami untuk memastikan kualitas bangunan tahan lama.',
+            'Mereka adalah anak-anak berprestasi yang terancam putus sekolah karena biaya. Beasiswa ini menutup biaya pendidikan penuh selama satu tahun.',
         ],
     ],
 

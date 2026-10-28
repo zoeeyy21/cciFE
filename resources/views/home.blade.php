@@ -218,7 +218,7 @@
             <a href="{{ url('/program/'.$prog->slug) }}" class="text-xs font-bold text-ink hover:text-accent-primary">
               Detail &rarr;
             </a>
-            <a href="{{ url('/donasi') }}" class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs">
+            <a href="{{ url('/donasi/'.$prog->slug) }}" class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs">
               Dukung
             </a>
           </div>

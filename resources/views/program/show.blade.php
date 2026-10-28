@@ -75,7 +75,7 @@
         <h3 class="font-serif font-bold text-2xl text-white">Dukung Kelangsungan Program Ini</h3>
         <p class="text-xs text-forest-200/80 mt-1 max-w-md">Donasi Anda disalurkan 100% untuk operasional dan pengadaan kebutuhan anak pada program ini.</p>
       </div>
-      <a href="{{ url('/donasi') }}" class="btn-pill btn-sun shrink-0 !py-3.5 !px-6 text-sm font-bold">
+      <a href="{{ url('/donasi/'.$program->slug) }}" class="btn-pill btn-sun shrink-0 !py-3.5 !px-6 text-sm font-bold">
         Donasi Sekarang &rarr;
       </a>
     </div>

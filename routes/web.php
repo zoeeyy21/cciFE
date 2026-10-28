@@ -256,6 +256,37 @@ Route::get('/donasi/{slug}', function (string $slug) {
     $campaigns = cciCampaigns();
     $campaign  = collect($campaigns)->firstWhere('slug', $slug);
 
+    if (! $campaign) {
+        $program = collect(cciPrograms())->firstWhere('slug', $slug);
+        if ($program) {
+            $catKey = strtolower($program->category ?? 'pendidikan');
+            if (! array_key_exists($catKey, cciCampaignCategories())) {
+                $catKey = 'pendidikan';
+            }
+
+            $campaign = cciCampaign([
+                'slug'         => $program->slug,
+                'title'        => 'Dukung Program ' . $program->name,
+                'summary'      => $program->summary,
+                'category'     => $catKey,
+                'organization' => 'Yayasan Pelita Bahagia',
+                'location'     => 'Nusa Tenggara Timur',
+                'raised'       => 35000000,
+                'target'       => 50000000,
+                'donors'       => 342,
+                'days_left'    => 45,
+                'urgent'       => false,
+                'verified'     => true,
+                'image'        => $program->image ?? null,
+                'story'        => array_filter([
+                    $program->summary,
+                    strip_tags($program->description ?? ''),
+                    'Setiap donasi yang Anda salurkan akan dialokasikan langsung untuk operasional dan pemenuhan kebutuhan anak-anak penerima manfaat pada program ini.',
+                ]),
+            ]);
+        }
+    }
+
     abort_unless($campaign, 404);
 
     $others = collect($campaigns)

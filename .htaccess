@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Proteksi file sensitif & konfigurasi agar tidak bisa diakses publik
+    RewriteRule ^(\.env|composer\.(json|lock)|package(-lock)?\.json|\.git|storage\/logs) - [F,L,NC]
+
+    # Arahkan seluruh request pengunjung ke folder public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
