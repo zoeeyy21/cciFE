@@ -73,6 +73,7 @@ function cciSite(): array
             'villages' => 0, 'founded_year' => 0, 'volunteers' => 0,
         ],
         'social' => ['instagram' => '', 'facebook' => '', 'youtube' => '', 'tiktok' => ''],
+        'social_stats' => ['instagram_handle' => '', 'instagram_followers' => '', 'instagram_posts' => '', 'youtube_handle' => ''],
         'quote' => ['text' => '', 'author' => '', 'role' => ''],
         'story' => ['heading' => '', 'paragraph_1' => '', 'paragraph_2' => ''],
         'mission' => ['badge' => '', 'quote' => '', 'body' => ''],

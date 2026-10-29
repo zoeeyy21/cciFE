@@ -49,10 +49,18 @@ return [
 
     // ── MEDIA SOSIAL (kosongkan '' jika tidak ada) ────────────────────────
     'social' => [
-        'instagram' => 'https://instagram.com/pelitabahagia',
+        'instagram' => 'https://www.instagram.com/pelitabahagia',
         'facebook'  => 'https://facebook.com/pelitabahagia',
-        'youtube'   => 'https://youtube.com/@pelitabahagia',
+        'youtube'   => 'https://www.youtube.com/@YayasanPelitaBahagia',
         'tiktok'    => 'https://tiktok.com/@pelitabahagia',
+    ],
+
+    // ── STATISTIK MEDIA SOSIAL ─────────────────────────────────────────────
+    'social_stats' => [
+        'instagram_handle'    => '@pelitabahagia',
+        'instagram_followers' => '1.174',
+        'instagram_posts'     => '408',
+        'youtube_handle'      => '@YayasanPelitaBahagia',
     ],
 
     // ── KUTIPAN / TESTIMONI BERANDA ───────────────────────────────────────
