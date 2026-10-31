@@ -218,7 +218,7 @@ return [
         'days_left'    => 40,
         'urgent'       => false,
         'verified'     => true,
-        'image'        => null,
+        'image'        => 'campaigns/pangan-bergizi.jpg',
         'story'        => [
             'Pertanian lahan kering di Sumba sering mengalami gagal panen akibat kemarau panjang. Program ini memberikan bibit jagung bersertifikat tahan cuaca kering dan pelatihan pupuk kompos alami.',
             'Hasil panen diprioritaskan untuk pemenuhan gizi keluarga anak asuh, dan sisanya dijual untuk tabungan biaya sekolah anak.',

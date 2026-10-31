@@ -6,7 +6,7 @@
 <section class="pt-24 sm:pt-28 pb-12 sm:pb-16 bg-gradient-to-b from-paper-warm via-paper-warm/80 to-paper text-center">
   <div class="max-w-4xl mx-auto px-4 sm:px-6">
     <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
-      Kegiatan
+      Kegiatan Yayasan
     </h1>
     <p class="mt-3 sm:mt-5 text-sm sm:text-base text-ink-muted leading-relaxed max-w-2xl mx-auto">
       Dokumentasi terperinci aksi nyata para relawan dan penyaluran bantuan di desa-desa binaan.
@@ -23,7 +23,7 @@
         <input 
           type="text" 
           id="activity-search" 
-          placeholder="Cari nama kegiatan, lokasi, atau program terkait..." 
+          placeholder="Cari nama kegiatan atau lokasi..." 
           class="w-full pl-11 sm:pl-12 pr-10 py-3 sm:py-3.5 rounded-full bg-surface border border-line shadow-warm-sm text-sm text-ink placeholder-ink-muted focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent transition-all"
         />
         <button 
@@ -92,25 +92,14 @@
 
             {{-- Isi Informasi Kegiatan Lapangan Secara Lugas --}}
             <div class="p-5 sm:p-6">
-              
-              {{-- 1. Tag / Badge Program Terkait (Menggantikan 'Berita Lapangan') --}}
-              <div class="mb-2.5">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-tint-primary text-accent-primary border border-tint-primary-line max-w-full truncate" title="{{ $activity->program_name }}">
-                  <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
-                  </svg>
-                  <span class="truncate">{{ $activity->program_name ?: 'Program Aksi' }}</span>
-                </span>
-              </div>
-
-              {{-- 2. Nama Kegiatan --}}
+              {{-- Nama Kegiatan --}}
               <h3 class="font-serif font-bold text-base sm:text-lg text-ink group-hover:text-accent-primary transition-colors leading-snug line-clamp-2">
                 {{ $activity->title }}
               </h3>
 
-              {{-- 3. Info Tanggal & Lokasi Pelaksanaan --}}
-              <div class="mt-2.5 pt-2 border-t border-line-soft space-y-1">
-                @if(!empty($activity->location))
+              {{-- Info Lokasi Pelaksanaan --}}
+              @if(!empty($activity->location))
+                <div class="mt-2.5 pt-2 border-t border-line-soft">
                   <div class="flex items-center gap-1.5 text-[11px] text-ink-muted">
                     <svg class="w-3.5 h-3.5 text-accent-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -118,14 +107,8 @@
                     </svg>
                     <span class="truncate">{{ $activity->location }}</span>
                   </div>
-                @endif
-                <div class="flex items-center gap-1.5 text-[11px] text-ink-muted">
-                  <svg class="w-3.5 h-3.5 text-forest-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  <span>{{ \Carbon\Carbon::parse($activity->date ?? now())->translatedFormat('l, d F Y') }}</span>
                 </div>
-              </div>
+              @endif
 
               {{-- Ringkasan --}}
               <p class="text-xs sm:text-sm text-ink-muted mt-2.5 line-clamp-2 leading-relaxed">

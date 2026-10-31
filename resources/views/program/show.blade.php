@@ -28,11 +28,6 @@
     <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight">
       {{ $program->name ?? 'Detail Program Bantuan' }}
     </h1>
-    @if(isset($program->summary))
-      <p class="text-base sm:text-lg text-ink-muted mt-4 leading-relaxed">
-        {{ $program->summary }}
-      </p>
-    @endif
   </div>
 </section>
 

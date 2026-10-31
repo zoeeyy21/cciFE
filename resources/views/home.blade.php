@@ -57,17 +57,18 @@
       {{-- Hero Right Block: Visual Focus Hero Bento Card (5 Cols) --}}
       <div class="lg:col-span-5 flex flex-col gap-4">
 
-        {{-- Card 1: Dark Forest Mission Focus Container --}}
-        <div class="bento-card p-6 sm:p-8 bg-gradient-to-br from-forest-900 via-forest-950 to-forest-900 text-white flex-1 flex flex-col justify-between relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-forest-700/40 blur-2xl pointer-events-none"></div>
-          <div class="absolute -left-10 bottom-0 w-40 h-40 rounded-full bg-sun-400/10 blur-2xl pointer-events-none"></div>
+        {{-- Card 1: Warm Primary Mission Focus Container --}}
+        <div class="bento-card p-6 sm:p-8 text-white flex-1 flex flex-col justify-between relative overflow-hidden shadow-warm-lg"
+          style="background: linear-gradient(135deg, #c4552e 0%, #8a361c 100%);">
+          <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+          <div class="absolute -left-10 bottom-0 w-40 h-40 rounded-full bg-sun-400/15 blur-2xl pointer-events-none"></div>
 
           <div class="relative z-10">
             <div class="flex items-center justify-between mb-4">
-              <span class="badge-pill bg-forest-800/90 text-sun-300 border border-forest-700 text-[10px] sm:text-xs">
+              <span class="badge-pill bg-black/20 text-sun-300 border border-white/20 text-[10px] sm:text-xs">
                 {{ $site['mission']['badge'] ?: 'Misi Utama 2026' }}
               </span>
-              <span class="text-xs text-forest-200/70 font-mono">
+              <span class="text-xs text-primary-100/80 font-mono">
                 {{ $site['stats']['founded_year'] ? 'Est. ' . $site['stats']['founded_year'] : 'Yayasan Resmi' }}
               </span>
             </div>
@@ -77,33 +78,33 @@
             </h2>
 
             @if($site['mission']['body'])
-              <p class="text-xs text-forest-200/80 mt-3 leading-relaxed">
+              <p class="text-xs text-primary-50/90 mt-3 leading-relaxed">
                 {{ $site['mission']['body'] }}
               </p>
             @endif
           </div>
 
-          <div class="relative z-10 pt-6 border-t border-forest-800/80 mt-6">
+          <div class="relative z-10 pt-6 border-t border-white/15 mt-6">
             <div class="grid grid-cols-3 gap-2 text-center">
-              <div class="p-2.5 rounded-2xl bg-forest-900/60 border border-forest-800/60">
+              <div class="p-2.5 rounded-2xl bg-black/20 border border-white/10">
                 <span class="block font-serif font-bold text-lg sm:text-xl text-sun-300 leading-none">
                   {{ number_format($site['stats']['children'] ?: 1250, 0, ',', '.') }}+
                 </span>
-                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Anak Terbantu</span>
+                <span class="block text-[10px] text-primary-100 uppercase tracking-wider mt-1 font-medium">Anak Terbantu</span>
               </div>
 
-              <div class="p-2.5 rounded-2xl bg-forest-900/60 border border-forest-800/60">
+              <div class="p-2.5 rounded-2xl bg-black/20 border border-white/10">
                 <span class="block font-serif font-bold text-lg sm:text-xl text-sun-300 leading-none">
                   {{ $site['stats']['programs_completed'] ?: '28+' }}
                 </span>
-                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Program Terlaksana</span>
+                <span class="block text-[10px] text-primary-100 uppercase tracking-wider mt-1 font-medium">Program Terlaksana</span>
               </div>
 
-              <div class="p-2.5 rounded-2xl bg-forest-900/60 border border-forest-800/60">
+              <div class="p-2.5 rounded-2xl bg-black/20 border border-white/10">
                 <span class="block font-serif font-bold text-lg sm:text-xl text-sun-300 leading-none">
                   {{ $site['stats']['packages_distributed'] ?: '3.500+' }}
                 </span>
-                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Paket Bantuan</span>
+                <span class="block text-[10px] text-primary-100 uppercase tracking-wider mt-1 font-medium">Paket Bantuan</span>
               </div>
             </div>
           </div>
@@ -267,11 +268,6 @@
               </div>
             @endif
             <div class="p-5 sm:p-6">
-              <div class="mb-2">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-tint-primary text-accent-primary border border-tint-primary-line">
-                  {{ $act->program_name ?: 'Program Aksi' }}
-                </span>
-              </div>
               <h3 class="font-serif font-bold text-base sm:text-lg text-ink group-hover:text-accent-primary transition-colors line-clamp-2">
                 {{ $act->title }}
               </h3>

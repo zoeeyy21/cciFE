@@ -25,13 +25,14 @@
 
         {{-- WhatsApp Card (hanya tampil kalau nomor sudah diisi) --}}
         @if($site['whatsapp_link'])
-        <div class="bento-card p-7 bg-gradient-to-br from-forest-900 to-forest-950 text-white relative overflow-hidden">
-          <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-forest-700/30 blur-xl"></div>
+        <div class="bento-card p-7 text-white relative overflow-hidden shadow-warm-lg"
+          style="background: linear-gradient(135deg, #c4552e 0%, #8a361c 100%);">
+          <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl"></div>
           <h3 class="font-serif font-bold text-2xl text-white">Konsultasi Donasi via WhatsApp</h3>
-          <p class="text-xs text-forest-200/80 mt-2 leading-relaxed">
+          <p class="text-xs text-primary-50/90 mt-2 leading-relaxed">
             Tim layanan donatur kami siap membantu konfirmasi transfer, laporan pertanggungjawaban, dan konsultasi program.
           </p>
-          <a href="{{ $site['whatsapp_link'] }}" target="_blank" rel="noopener" class="btn-pill btn-sun !py-3 !px-5 text-xs font-bold mt-6 inline-flex items-center gap-2">
+          <a href="{{ $site['whatsapp_link'] }}" target="_blank" rel="noopener" class="btn-pill btn-sun !py-3 !px-5 text-xs font-bold mt-6 inline-flex items-center gap-2 shadow-warm">
             <svg class="w-4 h-4 text-forest-950" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
             Chat WhatsApp Sekarang &rarr;
           </a>

@@ -149,11 +149,6 @@
                   {{ $program->name }}
                 </a>
               </h3>
-
-              {{-- Ringkasan Program --}}
-              <p class="text-xs sm:text-sm text-ink-muted mt-2 line-clamp-2 leading-relaxed">
-                {{ $program->summary }}
-              </p>
             </div>
           </div>
 

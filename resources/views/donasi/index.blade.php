@@ -235,6 +235,14 @@
           @if(!empty($c['image']))
             <div class="h-40 sm:h-44 overflow-hidden relative">
               <img src="{{ asset('storage/'.$c['image']) }}" alt="{{ $c['title'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+              <div class="absolute bottom-2.5 right-2.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/70 text-white backdrop-blur-md">
+                  <svg class="w-3 h-3 text-sun-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Sisa {{ $c['days_left'] }} hari</span>
+                </span>
+              </div>
             </div>
           @else
             @php
@@ -246,41 +254,35 @@
               ];
               $palette = $palettes[$c['category']] ?? 'from-stone-600 to-stone-800';
             @endphp
-            <div class="h-40 sm:h-44 bg-gradient-to-br {{ $palette }} relative overflow-hidden">
+            <div class="h-40 sm:h-44 bg-gradient-to-br {{ $palette }} relative overflow-hidden flex items-center justify-center text-white">
               <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-white/10"></div>
-              <div class="absolute left-1/3 -bottom-10 w-28 h-28 rounded-full bg-white/5"></div>
-              <div class="relative h-full flex flex-col justify-between p-5 text-white">
-                <div class="flex items-start justify-between gap-2">
-                  <span class="badge-pill bg-white/20 backdrop-blur-md text-white border border-white/25 text-[10px]">
-                    {{ $categoryList[$c['category']] ?? 'Umum' }}
-                  </span>
-                </div>
-                <div>
-                  <span class="block text-[10px] uppercase tracking-widest text-white/70">Sisa Waktu</span>
-                  <span class="block font-serif text-2xl font-bold">{{ $c['days_left'] }} hari</span>
-                </div>
+              <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl font-serif font-bold">
+                {{ strtoupper(substr($c['title'], 0, 1)) }}
+              </div>
+              <div class="absolute bottom-2.5 right-2.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/70 text-white backdrop-blur-md">
+                  <svg class="w-3 h-3 text-sun-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Sisa {{ $c['days_left'] }} hari</span>
+                </span>
               </div>
             </div>
           @endif
 
           {{-- Body --}}
           <div class="p-5 sm:p-6 flex-1 flex flex-col">
-            @if(!empty($c['image']))
-              <div class="flex items-center gap-2 flex-wrap mb-2.5">
-                <span class="badge-pill bg-tint-primary text-accent-primary border border-tint-primary-line text-[10px]">
-                  {{ $categoryList[$c['category']] ?? 'Umum' }}
-                </span>
+            <div class="flex items-center gap-2 flex-wrap mb-2.5">
+              <span class="badge-pill bg-tint-primary text-accent-primary border border-tint-primary-line text-[10px]">
+                {{ $categoryList[$c['category']] ?? 'Umum' }}
+              </span>
+              @if(!empty($c['location']))
                 <span class="text-[10px] text-ink-muted flex items-center gap-1">
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                   {{ $c['location'] }}
                 </span>
-              </div>
-            @else
-              <span class="text-[10px] text-ink-muted flex items-center gap-1 mb-2.5">
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                {{ $c['location'] }}
-              </span>
-            @endif
+              @endif
+            </div>
 
             <h3 class="font-serif font-bold text-base sm:text-lg text-ink leading-snug group-hover:text-accent-primary transition-colors line-clamp-2">
               {{ $c['title'] }}
@@ -309,6 +311,10 @@
               <span class="flex items-center gap-1">
                 <svg class="w-3.5 h-3.5 text-accent-forest" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
                 {{ number_format($c['donors'], 0, ',', '.') }} donatur
+              </span>
+              <span class="flex items-center gap-1 text-ink font-semibold">
+                <svg class="w-3.5 h-3.5 text-accent-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Sisa {{ $c['days_left'] }} hari
               </span>
               @if($c['verified'])
               <span class="flex items-center gap-1 text-accent-forest font-semibold">
@@ -384,14 +390,14 @@
 </section>
 
 {{-- ═══════════════ CTA ═══════════════ --}}
-<section class="py-14 sm:py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-forest-900 text-white relative overflow-hidden">
-  <div class="absolute -right-16 top-0 w-64 h-64 rounded-full bg-white/5"></div>
+<section class="py-14 sm:py-20 bg-forest-950 text-white relative overflow-hidden border-t border-forest-900">
+  <div class="absolute -right-16 top-0 w-64 h-64 rounded-full bg-forest-800/20 blur-2xl pointer-events-none"></div>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-    <span class="badge-pill bg-white/20 text-white border border-white/30 mb-3 text-[10px] sm:text-xs">Punya Misi Sosial?</span>
-    <h2 class="font-serif text-2xl sm:text-4xl md:text-5xl font-bold leading-tight">
+    <span class="badge-pill bg-forest-900/80 text-sun-300 border border-forest-800 mb-3 text-[10px] sm:text-xs">Punya Misi Sosial?</span>
+    <h2 class="font-serif text-2xl sm:text-4xl md:text-5xl font-bold leading-tight text-white">
       Galang Dana untuk Sekitarmu di Sini
     </h2>
-    <p class="text-primary-100 text-xs sm:text-base mt-3 sm:mt-4 max-w-xl mx-auto leading-relaxed px-2">
+    <p class="text-forest-200/80 text-xs sm:text-base mt-3 sm:mt-4 max-w-xl mx-auto leading-relaxed px-2">
       Kami mendampingi dari penyusunan halaman donasi, verifikasi penerima manfaat, hingga pelaporan dana secara terbuka.
     </p>
     <div class="mt-6 sm:mt-8 flex items-center justify-center gap-3 flex-col sm:flex-row w-full max-w-md mx-auto sm:max-w-none">
