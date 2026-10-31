@@ -70,6 +70,7 @@ function cciSite(): array
         'stats' => [
             'children' => 0, 'children_note' => '',
             'programs' => 0, 'programs_note' => '',
+            'programs_completed' => 0, 'packages_distributed' => '',
             'villages' => 0, 'founded_year' => 0, 'volunteers' => 0,
         ],
         'social' => ['instagram' => '', 'facebook' => '', 'youtube' => '', 'tiktok' => ''],
@@ -81,10 +82,12 @@ function cciSite(): array
 
     $site = array_replace_recursive($defaults, cciData('site'));
 
-    // Bersihkan tautan WhatsApp menjadi digit saja untuk wa.me
-    $site['whatsapp_link'] = $site['whatsapp']
-        ? 'https://wa.me/' . preg_replace('/\D/', '', $site['whatsapp'])
-        : '';
+    // Bersihkan tautan WhatsApp menjadi digit berawalan 62 untuk wa.me
+    $waDigits = preg_replace('/\D/', '', $site['whatsapp']);
+    if (str_starts_with($waDigits, '0')) {
+        $waDigits = '62' . substr($waDigits, 1);
+    }
+    $site['whatsapp_link'] = $waDigits ? 'https://wa.me/' . $waDigits : '';
 
     return $site;
 }
@@ -260,6 +263,10 @@ Route::get('/donasi/{slug}', function (string $slug) {
     if (! $campaign) {
         $program = collect(cciPrograms())->firstWhere('slug', $slug);
         if ($program) {
+            if (strtolower($program->status ?? 'aktif') !== 'aktif') {
+                return redirect()->route('program.show', $slug);
+            }
+
             $catKey = strtolower($program->category ?? 'pendidikan');
             if (! array_key_exists($catKey, cciCampaignCategories())) {
                 $catKey = 'pendidikan';

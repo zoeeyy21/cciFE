@@ -67,38 +67,20 @@
       <form action="{{ route('donasi.store') }}" method="POST" id="donation-form" class="space-y-6 sm:space-y-8">
         @csrf
 
-        {{-- 1. FREKUENSI --}}
-        <div>
-          <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-ink-muted mb-2.5">Frekuensi Donasi</label>
-          <div class="grid grid-cols-2 gap-2 p-1.5 bg-paper-warm rounded-2xl border border-line/80">
-            <label class="cursor-pointer">
-              <input type="radio" name="frequency" value="once" class="peer sr-only" checked />
-              <div class="py-2.5 text-center text-xs font-bold rounded-xl transition-all peer-checked:bg-surface peer-checked:text-accent-primary peer-checked:shadow-warm-sm text-ink-muted flex items-center justify-center min-h-[42px]">
-                Sekali Berbagi
-              </div>
-            </label>
-            <label class="cursor-pointer">
-              <input type="radio" name="frequency" value="monthly" class="peer sr-only" />
-              <div class="py-2.5 text-center text-xs font-bold rounded-xl transition-all peer-checked:bg-surface peer-checked:text-accent-primary peer-checked:shadow-warm-sm text-ink-muted flex items-center justify-center gap-1 min-h-[42px]">
-                <span>Rutin Tiap Bulan</span>
-                <span class="text-[9px] px-1.5 py-0.2 bg-primary-100 text-accent-primary rounded-full font-extrabold hidden sm:inline">Sahabat</span>
-              </div>
-            </label>
-          </div>
-        </div>
+        <input type="hidden" name="frequency" value="once" />
 
         {{-- 2. PERUNTUKAN / KAMPANYE --}}
         <div>
           <label class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-ink-muted mb-2.5">Peruntukan Dana</label>
           <select name="campaign" class="input-premium !py-3.5 text-sm font-semibold cursor-pointer">
-            <option value="umum" {{ !$selected ? 'selected' : '' }}>Donasi Umum — program paling mendesak</option>
+            <option value="umum" {{ !$selected ? 'selected' : '' }}>Donasi Umum — seluruh program yayasan</option>
             @foreach($campaignList as $c)
               <option value="{{ $c['slug'] }}" {{ $selected === $c['slug'] ? 'selected' : '' }}>
                 {{ \Illuminate\Support\Str::limit($c['title'], 58) }}
               </option>
             @endforeach
           </select>
-          <p class="text-[10px] text-ink-muted mt-1.5">Pilih kampanye tertentu, atau biarkan umum agar disalurkan ke kebutuhan paling mendesak.</p>
+          <p class="text-[10px] text-ink-muted mt-1.5">Pilih program tertentu, atau biarkan umum agar disalurkan secara merata.</p>
         </div>
 
         {{-- 3. NOMINAL --}}

@@ -90,12 +90,6 @@
               </p>
             </div>
           </div>
-
-          {{-- Footer Card --}}
-          <div class="px-5 pb-4 pt-1 bg-surface border-t border-line-soft flex items-center justify-between text-[11px] font-semibold text-accent-primary">
-            <span>Perbesar Gambar</span>
-            <span class="transition-transform group-hover:translate-x-0.5">&nearr;</span>
-          </div>
         </div>
       @empty
         <div class="col-span-full p-8 sm:p-14 text-center rounded-3xl bg-surface border-2 border-dashed border-line">

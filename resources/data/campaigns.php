@@ -28,6 +28,28 @@
 
 return [
 
+    // ── PROGRAM PENDIDIKAN UTAMA (TEBAR PAKET SEKOLAH) ───────────────────
+    [
+        'slug'         => 'tebar-paket-sekolah',
+        'title'        => 'Tebar Paket Sekolah Anak Nusantara',
+        'summary'      => 'Bantuan paket tas sekolah, buku pelajaran, dan fasilitas pendukung belajar bagi anak-anak nusantara.',
+        'category'     => 'pendidikan',
+        'organization' => 'Yayasan Pelita Bahagia Anak Nusantara',
+        'location'     => 'Pelosok Nusantara',
+        'raised'       => 18450000,
+        'target'       => 28000000,
+        'donors'       => 342,
+        'days_left'    => 28,
+        'urgent'       => false,
+        'verified'     => true,
+        'image'        => 'campaigns/tebar-paket-sekolah.jpg',
+        'story'        => [
+            'Program Tebar Paket Sekolah diinisiasi oleh Yayasan Pelita Bahagia Anak Nusantara dalam momentum Hari Sumpah Pemuda. Melalui gerakan "Menyalakan Pelita untuk Pendidikan Anak Nusantara", bantuan disalurkan berupa tas sekolah baru, buku pelajaran, buku tulis, dan fasilitas penunjang belajar bagi anak-anak di pelosok nusantara.',
+            'Sedekah mulai dari Rp 28.000 membuka kesempatan bagi masyarakat luas untuk bersama-sama meringankan beban keluarga pra-sejahtera dan memastikan anak-anak Indonesia dapat bersekolah dengan penuh semangat dan rasa bangga.',
+            'Seluruh donasi yang terkumpul akan disalurkan secara transparan dan dipertanggungjawabkan melalui laporan berkala di halaman Berita & Kegiatan yayasan.',
+        ],
+    ],
+
     // ── KESEHATAN — paling mendesak ─────────────────────────────────────
     [
         'slug'         => 'bantu-operasi-jantung-dede',

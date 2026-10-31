@@ -100,11 +100,6 @@
                         </button>
                         @endif
                       @endforeach
-          <button type="button" data-category="urgent"
-                  class="category-chip shrink-0 px-3.5 py-2 rounded-full text-xs font-bold border transition-all min-h-[38px] bg-surface border-tint-primary-line text-accent-primary hover:bg-tint-primary flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
-            Mendesak
-          </button>
         </div>
       </div>
 
@@ -113,7 +108,6 @@
         <label for="sort-select" class="text-[11px] font-bold uppercase tracking-wider text-ink-muted hidden sm:block">Urutkan</label>
         <select id="sort-select"
                 class="px-3.5 py-2.5 rounded-full border border-line bg-surface text-xs font-semibold text-ink outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all min-h-[42px] cursor-pointer">
-          <option value="urgent">Paling Mendesak</option>
           <option value="progress">Progres Terdekat</option>
           <option value="raised">Dana Terkumpul</option>
           <option value="donors">Donatur Terbanyak</option>
@@ -146,11 +140,6 @@
         <div class="absolute -left-8 bottom-4 w-32 h-32 rounded-full bg-sun-400/20"></div>
         <div class="relative h-full flex flex-col justify-between p-6 sm:p-8 text-white">
           <div class="flex flex-wrap items-center gap-2">
-            @if($heroCampaign['urgent'])
-            <span class="badge-pill bg-red-500 text-white border border-red-400 text-[10px] flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Mendesak
-            </span>
-            @endif
             @if($heroCampaign['verified'])
             <span class="badge-pill bg-white/20 backdrop-blur-md text-white border border-white/30 text-[10px] flex items-center gap-1">
               <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812z" clip-rule="evenodd"/></svg>
@@ -246,11 +235,6 @@
           @if(!empty($c['image']))
             <div class="h-40 sm:h-44 overflow-hidden relative">
               <img src="{{ asset('storage/'.$c['image']) }}" alt="{{ $c['title'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
-              @if($c['urgent'])
-                <span class="absolute top-3 left-3 badge-pill bg-red-500 text-white text-[10px] flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Mendesak
-                </span>
-              @endif
             </div>
           @else
             @php
@@ -270,11 +254,6 @@
                   <span class="badge-pill bg-white/20 backdrop-blur-md text-white border border-white/25 text-[10px]">
                     {{ $categoryList[$c['category']] ?? 'Umum' }}
                   </span>
-                  @if($c['urgent'])
-                    <span class="badge-pill bg-red-500 text-white text-[10px] flex items-center gap-1.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Mendesak
-                    </span>
-                  @endif
                 </div>
                 <div>
                   <span class="block text-[10px] uppercase tracking-widest text-white/70">Sisa Waktu</span>
@@ -434,7 +413,7 @@
     const chips       = document.querySelectorAll('.category-chip');
 
     let activeCategory = 'all';
-    let activeSort     = 'urgent';
+    let activeSort     = 'progress';
 
     const allCards = () => Array.from(grid.querySelectorAll('.campaign-card'));
 

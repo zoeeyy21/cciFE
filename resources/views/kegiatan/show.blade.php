@@ -66,13 +66,10 @@
       </div>
     @endif
 
-    {{-- Bottom Share & Back Navigation --}}
+    {{-- Bottom Back Navigation --}}
     <div class="mt-12 pt-8 border-t border-line-soft flex items-center justify-between flex-wrap gap-4">
       <a href="{{ url('/kegiatan') }}" class="btn-pill btn-outline text-xs">
         &larr; Berita Lainnya
-      </a>
-      <a href="{{ url('/donasi') }}" class="btn-pill btn-primary text-xs">
-        Salurkan Donasi Aksi Ini
       </a>
     </div>
 

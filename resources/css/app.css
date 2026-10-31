@@ -401,3 +401,22 @@ summary:focus-visible,
 button, a, input, select, textarea {
   -webkit-tap-highlight-color: rgba(209, 95, 52, 0.1);
 }
+
+/* Footer layout stability */
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-main-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-contact-card {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1024px) {
+  .footer-main-grid {
+    grid-template-columns: 5fr 3fr 4fr;
+  }
+}

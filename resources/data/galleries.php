@@ -13,6 +13,12 @@
 return [
 
     [
+        'image'          => 'galleries/tebar-paket-sekolah.jpg',
+        'activity_title' => 'Tebar Paket Sekolah Sumpah Pemuda',
+        'caption'        => 'Relawan Pelita Bahagia menyerahkan paket tas sekolah dan perlengkapan belajar baru kepada anak-anak dalam momentum Hari Sumpah Pemuda.',
+    ],
+
+    [
         'image'          => 'galleries/senyum-anak-pulau-harapan.jpg',
         'activity_title' => 'Penyaluran 300 Paket Belajar',
         'caption'        => 'Senyum ceria siswa SD Pulau Harapan saat menerima tas sekolah baru dari relawan.',

@@ -18,6 +18,17 @@
 return [
 
     [
+        'title'        => 'Aksi Tebar Paket Sekolah di Hari Sumpah Pemuda',
+        'slug'         => 'tebar-paket-sekolah-sumpah-pemuda',
+        'date'         => '2026-10-28',
+        'location'     => 'Nusantara',
+        'program_name' => 'Tebar Paket Sekolah Anak Nusantara',
+        'summary'      => 'Penyaluran paket tas sekolah, buku pelajaran, dan fasilitas belajar lengkap untuk anak-anak dalam momentum Sumpah Pemuda.',
+        'content'      => '<p>Dalam rangka memperingati Hari Sumpah Pemuda 28 Oktober 2026, relawan Yayasan Pelita Bahagia Anak Nusantara melaksanakan aksi "Menyalakan Pelita untuk Pendidikan Anak Nusantara". Aksi nyata ini diwujudkan melalui pembagian paket perlengkapan sekolah langsung kepada anak-anak penerima manfaat.</p><p>Setiap paket yang diserahkan berisi tas ransel baru, buku pelajaran, buku tulis, serta satu set alat tulis lengkap. Senyum bahagia dan rasa syukur terpancar jelas dari wajah adik-adik saat menerima perlengkapan belajar baru mereka.</p><p>Terima kasih sebesar-besarnya kepada seluruh donatur dan sahabat dermawan yang telah menyisihkan rezekinya melalui sedekah pendidikan ini. Semoga setiap lembar buku dan setiap goresan pensil mereka menjadi amal jariyah yang terus mengalir.</p>',
+        'cover'        => 'activities/tebar-paket-sekolah.jpg',
+    ],
+
+    [
         'title'        => 'Penyaluran 300 Paket Belajar di Pulau Harapan',
         'slug'         => 'penyaluran-300-paket-belajar-pulau-harapan',
         'date'         => '2026-09-28',

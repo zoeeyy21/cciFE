@@ -6,7 +6,7 @@
 <section class="pt-24 sm:pt-28 pb-12 sm:pb-16 bg-gradient-to-b from-paper-warm via-paper-warm/80 to-paper text-center">
   <div class="max-w-4xl mx-auto px-4 sm:px-6">
     <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
-      Program Bantuan <span class="italic text-accent-primary">& Intervensi</span>
+      Program <span class="italic text-accent-primary">Kebaikan</span>
     </h1>
     <p class="mt-3 sm:mt-5 text-sm sm:text-base text-ink-muted leading-relaxed max-w-2xl mx-auto">
       Daftar program terencana untuk menjangkau anak-anak dan keluarga di pelosok negeri secara berkelanjutan.
@@ -166,12 +166,23 @@
               <span>Detail Program</span>
               <span>&rarr;</span>
             </a>
-            <a 
-              href="{{ url('/donasi/'.$program->slug) }}" 
-              class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs font-semibold shadow-sm"
-            >
-              Dukung
-            </a>
+            @if($isAktif)
+              <a 
+                href="{{ url('/donasi/'.$program->slug) }}" 
+                class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs font-semibold shadow-sm"
+              >
+                Dukung
+              </a>
+            @else
+              <button 
+                type="button" 
+                disabled 
+                class="btn-pill !py-1.5 !px-3.5 !text-xs font-semibold bg-line text-ink-muted/50 border border-line cursor-not-allowed opacity-60"
+                title="Program telah selesai / non-aktif"
+              >
+                Dukung
+              </button>
+            @endif
           </div>
         </div>
       @empty

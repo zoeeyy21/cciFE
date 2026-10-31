@@ -10,10 +10,20 @@
       Kembali ke Seluruh Program
     </a>
     <div class="flex items-center gap-3 mb-3">
-      <span class="badge-pill bg-tint-primary text-accent-primary border border-tint-primary-line text-[10px]">
-        {{ $program->status ?? 'Program Berjalan' }}
-      </span>
-      <span class="text-xs text-ink-muted">&bull; Target Terbuka</span>
+      @php
+        $isAktif = strtolower($program->status ?? 'aktif') === 'aktif';
+      @endphp
+      @if($isAktif)
+        <span class="badge-pill bg-tint-primary text-accent-primary border border-tint-primary-line text-[10px]">
+          {{ $program->status ?? 'Aktif' }}
+        </span>
+        <span class="text-xs text-ink-muted">&bull; Target Terbuka</span>
+      @else
+        <span class="badge-pill bg-stone-100 text-stone-600 border border-stone-200 text-[10px]">
+          {{ $program->status ?? 'Non-Aktif' }}
+        </span>
+        <span class="text-xs text-ink-muted">&bull; Program Telah Selesai</span>
+      @endif
     </div>
     <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight">
       {{ $program->name ?? 'Detail Program Bantuan' }}
@@ -69,16 +79,29 @@
     </div>
 
     {{-- Donation CTA Banner inside Program --}}
-    <div class="mt-14 p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-forest-900 to-forest-950 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-warm-lg">
-      <div>
-        <span class="badge-pill bg-forest-800 text-sun-300 border border-forest-700 text-[10px] mb-2">Ayo Terlibat</span>
-        <h3 class="font-serif font-bold text-2xl text-white">Dukung Kelangsungan Program Ini</h3>
-        <p class="text-xs text-forest-200/80 mt-1 max-w-md">Donasi Anda disalurkan 100% untuk operasional dan pengadaan kebutuhan anak pada program ini.</p>
+    @if($isAktif)
+      <div class="mt-14 p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-forest-900 to-forest-950 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-warm-lg">
+        <div>
+          <span class="badge-pill bg-forest-800 text-sun-300 border border-forest-700 text-[10px] mb-2">Ayo Terlibat</span>
+          <h3 class="font-serif font-bold text-2xl text-white">Dukung Kelangsungan Program Ini</h3>
+          <p class="text-xs text-forest-200/80 mt-1 max-w-md">Donasi Anda disalurkan 100% untuk operasional dan pengadaan kebutuhan anak pada program ini.</p>
+        </div>
+        <a href="{{ url('/donasi/'.$program->slug) }}" class="btn-pill btn-sun shrink-0 !py-3.5 !px-6 text-sm font-bold">
+          Donasi Sekarang &rarr;
+        </a>
       </div>
-      <a href="{{ url('/donasi/'.$program->slug) }}" class="btn-pill btn-sun shrink-0 !py-3.5 !px-6 text-sm font-bold">
-        Donasi Sekarang &rarr;
-      </a>
-    </div>
+    @else
+      <div class="mt-14 p-8 sm:p-10 rounded-3xl bg-paper-warm border border-line text-ink flex flex-col sm:flex-row items-center justify-between gap-6 shadow-warm-sm">
+        <div>
+          <span class="badge-pill bg-line text-ink-muted border border-line text-[10px] mb-2">Status: Program Selesai</span>
+          <h3 class="font-serif font-bold text-2xl text-ink">Program Telah Selesai</h3>
+          <p class="text-xs text-ink-muted mt-1 max-w-md">Program ini telah selesai dilaksanakan. Dukungan donasi untuk program ini telah ditutup.</p>
+        </div>
+        <button type="button" disabled class="btn-pill shrink-0 !py-3.5 !px-6 text-sm font-bold bg-line text-ink-muted/60 border border-line cursor-not-allowed opacity-70">
+          Donasi Ditutup
+        </button>
+      </div>
+    @endif
 
   </div>
 </section>

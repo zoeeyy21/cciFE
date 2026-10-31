@@ -9,12 +9,6 @@
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     
-    {{-- Top Pill Badge --}}
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-line/80 shadow-warm-sm mb-6 sm:mb-8">
-      <span class="w-2.5 h-2.5 rounded-full bg-primary-500 animate-pulse"></span>
-      <span class="text-[10px] sm:text-xs font-bold text-ink uppercase tracking-widest">{{ $site['name'] }}</span>
-    </div>
-
     {{-- Main Grid: Hero Split Layout --}}
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
       
@@ -22,11 +16,11 @@
       <div class="lg:col-span-7 flex flex-col justify-between space-y-6 sm:space-y-8">
         <div>
           <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-ink leading-[1.12] tracking-tight">
-            Menyalakan Harapan, <br/>
-            <span class="italic text-accent-primary underline decoration-sun-400 decoration-wavy decoration-2">Membuka Masa Depan.</span>
+            Yayasan Pelita Bahagia <br/>
+            <span class="italic text-accent-primary underline decoration-sun-400 decoration-wavy decoration-2">Anak Nusantara.</span>
           </h1>
           <p class="mt-4 sm:mt-6 text-sm sm:text-lg text-ink-muted leading-relaxed max-w-xl">
-            Setiap anak berhak mendapatkan buku di tangannya, nutrisi sehat di piringnya, dan senyuman hangat di wajahnya. Mari bergerak bersama mewujudkan masa depan cerah mereka.
+            Membangun generasi peduli, tangguh, dan berdaya melalui fokus utama pada <strong class="text-ink font-semibold">pendidikan anak</strong> serta <strong class="text-ink font-semibold">kepedulian sosial</strong> seperti pendampingan anak yatim &amp; dhuafa dan berbagai aksi kepedulian masyarakat.
           </p>
         </div>
 
@@ -40,7 +34,7 @@
               <span>Salurkan Donasi Sekarang</span>
             </a>
             <a href="{{ url('/program') }}" class="btn-pill btn-outline text-sm flex items-center justify-center gap-1.5">
-              <span>Lihat Program Aksi</span>
+              <span>Lihat Program </span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
               </svg>
@@ -93,23 +87,23 @@
             <div class="grid grid-cols-3 gap-2 text-center">
               <div class="p-2.5 rounded-2xl bg-forest-900/60 border border-forest-800/60">
                 <span class="block font-serif font-bold text-lg sm:text-xl text-sun-300 leading-none">
-                  {{ $site['stats']['children'] ?: '—' }}
+                  {{ number_format($site['stats']['children'] ?: 1250, 0, ',', '.') }}+
                 </span>
-                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Anak Asuh</span>
+                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Anak Terbantu</span>
               </div>
 
               <div class="p-2.5 rounded-2xl bg-forest-900/60 border border-forest-800/60">
                 <span class="block font-serif font-bold text-lg sm:text-xl text-sun-300 leading-none">
-                  {{ $site['stats']['programs'] ?: '—' }}
+                  {{ $site['stats']['programs_completed'] ?: '28+' }}
                 </span>
-                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Program</span>
+                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Program Terlaksana</span>
               </div>
 
               <div class="p-2.5 rounded-2xl bg-forest-900/60 border border-forest-800/60">
                 <span class="block font-serif font-bold text-lg sm:text-xl text-sun-300 leading-none">
-                  {{ $site['stats']['villages'] ?: '—' }}
+                  {{ $site['stats']['packages_distributed'] ?: '3.500+' }}
                 </span>
-                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Desa Binaan</span>
+                <span class="block text-[10px] text-forest-200 uppercase tracking-wider mt-1 font-medium">Paket Bantuan</span>
               </div>
             </div>
           </div>
@@ -125,13 +119,10 @@
 {{-- 2. TIGA PILAR UTAMA AKSI (Background: Surface / White) --}}
 <section class="py-16 sm:py-24 bg-surface border-y border-line/60">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-12 sm:mb-16">
+    <div class="flex items-center justify-center text-center mb-10 sm:mb-14">
       <div>
         <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink tracking-tight">3 Pilar Utama Perubahan</h2>
       </div>
-      <p class="text-ink-muted text-xs sm:text-sm max-w-md leading-relaxed">
-        Intervensi yang dirancang secara holistik demi membangun kemandirian anak dan keluarga dalam jangka panjang.
-      </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -178,8 +169,8 @@
 </section>
 
 {{-- 3. PROGRAM YANG SEDANG BERJALAN (Background: Paper Warm) --}}
-<section class="py-16 sm:py-24 bg-paper-warm/70 border-b border-line/60">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+<section id="home-programs-section" class="py-16 sm:py-24 bg-paper-warm/70 border-b border-line/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between mb-10 sm:mb-12 flex-wrap gap-4">
       <div>
         <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink tracking-tight">Program Yang Sedang Berjalan</h2>
@@ -189,9 +180,9 @@
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="home-programs-grid">
       @forelse($programs ?? [] as $prog)
-        <div class="bento-card flex flex-col justify-between">
+        <div class="home-program-card bento-card flex flex-col justify-between">
           <div>
             @if($prog->image)
               <div class="h-44 sm:h-48 overflow-hidden">
@@ -214,13 +205,22 @@
               </p>
             </div>
           </div>
+          @php
+            $isAktif = strtolower($prog->status ?? 'aktif') === 'aktif';
+          @endphp
           <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-2 border-t border-line-soft flex items-center justify-between">
             <a href="{{ url('/program/'.$prog->slug) }}" class="text-xs font-bold text-ink hover:text-accent-primary">
               Detail &rarr;
             </a>
-            <a href="{{ url('/donasi/'.$prog->slug) }}" class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs">
-              Dukung
-            </a>
+            @if($isAktif)
+              <a href="{{ url('/donasi/'.$prog->slug) }}" class="btn-pill btn-primary !py-1.5 !px-3.5 !text-xs">
+                Dukung
+              </a>
+            @else
+              <button type="button" disabled class="btn-pill !py-1.5 !px-3.5 !text-xs font-semibold bg-line text-ink-muted/50 border border-line cursor-not-allowed opacity-60" title="Program telah selesai / non-aktif">
+                Dukung
+              </button>
+            @endif
           </div>
         </div>
       @empty
@@ -235,43 +235,15 @@
         </div>
       @endforelse
     </div>
+
+    {{-- Navigasi Pagination Program --}}
+    <div id="home-program-pagination" class="mt-10 sm:mt-12 flex items-center justify-center gap-2 flex-wrap"></div>
   </div>
 </section>
 
-{{-- 4. SUARA & TRANSPARANSI (Background: Ambient Warm Quote Section) --}}
-<section class="py-16 sm:py-24 bg-gradient-to-r from-sun-500/10 via-primary-500/5 to-forest-500/10 dark:from-sun-900/20 dark:via-surface dark:to-forest-900/30 border-b border-line/60 text-ink relative overflow-hidden">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-sun-400/20 text-accent-sun flex items-center justify-center mx-auto text-xl sm:text-2xl font-serif mb-5 sm:mb-6 shadow-warm-sm border border-sun-300/40">
-      ❝
-    </div>
-    @if(!empty($site['quote']['text']))
-      <blockquote class="font-serif text-xl sm:text-3xl md:text-4xl font-normal leading-relaxed text-ink px-2">
-        "{{ $site['quote']['text'] }}"
-      </blockquote>
-      @if(!empty($site['quote']['author']))
-        <div class="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sun-400 to-primary-500 text-white flex items-center justify-center font-bold font-serif text-sm shadow-warm-sm">
-            {{ strtoupper(substr($site['quote']['author'] ?? 'P', 0, 1)) }}
-          </div>
-          <div class="text-left">
-            <p class="font-serif font-bold text-sm sm:text-base text-ink">{{ $site['quote']['author'] }}</p>
-            @if(!empty($site['quote']['role']))
-              <p class="text-[11px] sm:text-xs text-ink-muted">{{ $site['quote']['role'] }}</p>
-            @endif
-          </div>
-        </div>
-      @endif
-    @else
-      <blockquote class="font-serif text-lg sm:text-2xl font-normal leading-relaxed text-ink-muted px-2">
-        Kutipan inspirasi belum diisi — lengkapi pada <span class="font-mono text-xs text-accent-primary">resources/data/site.php</span>
-      </blockquote>
-    @endif
-  </div>
-</section>
-
-{{-- 5. KABAR & CATATAN LAPANGAN (Background: Surface / White) --}}
-<section class="py-16 sm:py-24 bg-surface">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+{{-- 4. KABAR & CATATAN LAPANGAN (Background: Surface / White) --}}
+<section id="home-activities-section" class="py-16 sm:py-24 bg-surface border-b border-line/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between mb-10 sm:mb-12 flex-wrap gap-4">
       <div>
         <h2 class="font-serif text-2xl sm:text-4xl font-bold text-ink tracking-tight">Kegiatan</h2>
@@ -281,9 +253,9 @@
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="home-activities-grid">
       @forelse($activities ?? [] as $act)
-        <a href="{{ url('/kegiatan/'.$act->slug) }}" class="bento-card group flex flex-col justify-between">
+        <a href="{{ url('/kegiatan/'.$act->slug) }}" class="home-activity-card bento-card group flex flex-col justify-between">
           <div>
             @if($act->cover)
               <div class="h-44 sm:h-48 overflow-hidden">
@@ -331,16 +303,15 @@
         </div>
       @endforelse
     </div>
+
+    {{-- Navigasi Pagination Kegiatan --}}
+    <div id="home-activity-pagination" class="mt-10 sm:mt-12 flex items-center justify-center gap-2 flex-wrap"></div>
   </div>
 </section>
 
-{{-- 6. GRAND CLOSING CTA BANNER --}}
-<section class="py-16 sm:py-24 bg-gradient-to-br from-forest-900 via-forest-950 to-primary-950 text-white relative overflow-hidden">
-  <div class="absolute -top-24 left-1/4 w-96 h-96 rounded-full bg-forest-800/30 blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-24 right-10 w-80 h-80 rounded-full bg-sun-500/10 blur-3xl pointer-events-none"></div>
-  
+{{-- 5. GRAND CLOSING CTA BANNER --}}
+<section class="py-16 sm:py-24 bg-forest-950 text-white relative">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-    <span class="badge-pill bg-forest-900 text-sun-300 border border-forest-800 mb-3 text-[10px] sm:text-xs">Uluran Tangan Anda</span>
     <h2 class="font-serif text-2xl sm:text-4xl md:text-5xl font-bold leading-tight text-white tracking-tight">
       Jadilah Pelita di Tengah Kegelapan Mereka Hari Ini
     </h2>
@@ -357,5 +328,119 @@
     </div>
   </div>
 </section>
+
+{{-- Script Controller Pagination Beranda (3 item per halaman / 1 baris) --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function initHomePagination({ cardSelector, paginationId, sectionId, perPage = 3 }) {
+    const cards = Array.from(document.querySelectorAll(cardSelector));
+    const paginationContainer = document.getElementById(paginationId);
+    const section = document.getElementById(sectionId);
+
+    if (!cards.length || !paginationContainer) return;
+
+    let currentPage = 1;
+    const totalPages = Math.ceil(cards.length / perPage);
+
+    function render(scrollUp = false) {
+      const startIndex = (currentPage - 1) * perPage;
+      const endIndex = startIndex + perPage;
+
+      cards.forEach((card, index) => {
+        if (index >= startIndex && index < endIndex) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      renderButtons();
+
+      if (scrollUp && section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function renderButtons() {
+      paginationContainer.innerHTML = '';
+      if (totalPages <= 1) return;
+
+      // Tombol Previous
+      const prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.className = `btn-pill !py-2 !px-3.5 !text-xs font-bold transition-all flex items-center gap-1 ${
+        currentPage === 1 
+          ? 'opacity-40 cursor-not-allowed bg-paper-warm border border-line text-ink-muted' 
+          : 'bg-surface border border-line text-ink hover:bg-paper-warm hover:text-accent-primary'
+      }`;
+      prevBtn.innerHTML = `&larr; <span class="hidden sm:inline">Sebelumnya</span>`;
+      prevBtn.disabled = (currentPage === 1);
+      prevBtn.addEventListener('click', function () {
+        if (currentPage > 1) {
+          currentPage--;
+          render(true);
+        }
+      });
+      paginationContainer.appendChild(prevBtn);
+
+      // Nomor Halaman [1] [2] [3]...
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.type = 'button';
+        const isActive = (i === currentPage);
+        pageBtn.className = `w-9 h-9 rounded-full text-xs font-bold flex items-center justify-center transition-all ${
+          isActive 
+            ? 'bg-primary-500 text-white shadow-warm' 
+            : 'bg-surface border border-line text-ink hover:bg-paper-warm hover:text-accent-primary'
+        }`;
+        pageBtn.textContent = i;
+        pageBtn.addEventListener('click', function () {
+          if (currentPage !== i) {
+            currentPage = i;
+            render(true);
+          }
+        });
+        paginationContainer.appendChild(pageBtn);
+      }
+
+      // Tombol Next
+      const nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = `btn-pill !py-2 !px-3.5 !text-xs font-bold transition-all flex items-center gap-1 ${
+        currentPage === totalPages 
+          ? 'opacity-40 cursor-not-allowed bg-paper-warm border border-line text-ink-muted' 
+          : 'bg-surface border border-line text-ink hover:bg-paper-warm hover:text-accent-primary'
+      }`;
+      nextBtn.innerHTML = `<span class="hidden sm:inline">Selanjutnya</span> &rarr;`;
+      nextBtn.disabled = (currentPage === totalPages);
+      nextBtn.addEventListener('click', function () {
+        if (currentPage < totalPages) {
+          currentPage++;
+          render(true);
+        }
+      });
+      paginationContainer.appendChild(nextBtn);
+    }
+
+    render(false);
+  }
+
+  // Aktifkan Pagination Program (4 item / 1 baris di desktop)
+  initHomePagination({
+    cardSelector: '.home-program-card',
+    paginationId: 'home-program-pagination',
+    sectionId: 'home-programs-section',
+    perPage: 4
+  });
+
+  // Aktifkan Pagination Kegiatan (4 item / 1 baris di desktop)
+  initHomePagination({
+    cardSelector: '.home-activity-card',
+    paginationId: 'home-activity-pagination',
+    sectionId: 'home-activities-section',
+    perPage: 4
+  });
+});
+</script>
 
 @endsection

@@ -23,36 +23,37 @@ return [
     // ── IDENTITAS ─────────────────────────────────────────────────────────
     'name'        => 'Yayasan Pelita Bahagia Anak Nusantara',
     'short_name'  => 'Pelita Bahagia',
-    'tagline'     => 'Cahaya Kebaikan untuk Anak Indonesia',
-    'description' => 'Yayasan sosial yang bergerak di bidang pendidikan, gizi, dan perlindungan anak di wilayah pelosok Indonesia.',
-    'legal_number' => 'AHU-0012345.AH.01.04.Tahun 2021',
+    'tagline'     => 'Pendidikan Anak & Kepedulian Sosial',
+    'description' => 'Membangun generasi peduli, tangguh & berdaya melalui pendidikan anak dan kepedulian sosial seperti pendampingan anak yatim serta aksi kepedulian masyarakat.',
+    'legal_number' => '',
 
     // ── SEKRETARIAT ───────────────────────────────────────────────────────
-    'address'      => 'Jl. Pelita Harapan No. 42, Cilandak, Jakarta Selatan 12430',
-    'email'        => 'halo@pelitabahagia.org',
-    'email_partner' => 'kemitraan@pelitabahagia.org',
-    'email_volunteer' => 'relawan@pelitabahagia.org',
-    'phone'        => '+62 812-3456-7890',
-    'whatsapp'     => '6281234567890',
-    'maps_url'     => 'https://maps.app.goo.gl/pelitabahagia',
+    'address'      => 'Jl. Pasanggrahan Raya No.1, Cipadung Kulon, Kec. Panyileukan, Kota Bandung, Jawa Barat 40614',
+    'email'        => 'pba.nusantara@gmail.com',
+    'email_partner' => '',
+    'email_volunteer' => '',
+    'phone'        => '0821-1518-1505',
+    'whatsapp'     => '0821-1518-1505',
+    'maps_url'     => 'https://maps.app.goo.gl/n8waSrRJreFtENK36',
 
     // ── STATISTIK DAMPAK (angka saja, tanpa tanda kutip) ──────────────────
     'stats' => [
-        'children'     => 1250,  // jumlah anak asuh
-        'children_note' => 'Tersebar di 24 titik pelosok Nusa Tenggara Timur',
-        'programs'     => 6,   // jumlah program rutin
-        'programs_note' => 'Pendidikan, gizi sehat, dan pemberdayaan keluarga',
-        'villages'     => 24,   // jumlah desa binaan
-        'founded_year' => 2021,   // contoh: 2018
-        'volunteers'   => 180,   // jumlah relawan
+        'children'            => 1250,  // jumlah anak terbantu
+        'children_note'       => 'Mendapatkan bantuan pendidikan dan kepedulian sosial',
+        'programs'            => 6,     // jumlah program aktif
+        'programs_completed'  => 28,    // jumlah program yang telah terlaksana
+        'programs_note'       => 'Pendidikan anak, nutrisi sehat, dan aksi sosial',
+        'packages_distributed'=> '3.500+', // paket perlengkapan sekolah & bantuan sosial
+        'founded_year'        => 2021,   // contoh: 2018
+        'volunteers'          => 180,   // jumlah relawan
     ],
 
     // ── MEDIA SOSIAL (kosongkan '' jika tidak ada) ────────────────────────
     'social' => [
         'instagram' => 'https://www.instagram.com/pelitabahagia',
-        'facebook'  => 'https://facebook.com/pelitabahagia',
+        'facebook'  => '',
         'youtube'   => 'https://www.youtube.com/@YayasanPelitaBahagia',
-        'tiktok'    => 'https://tiktok.com/@pelitabahagia',
+        'tiktok'    => 'https://www.tiktok.com/@yayasanpelita',
     ],
 
     // ── STATISTIK MEDIA SOSIAL ─────────────────────────────────────────────
@@ -61,27 +62,29 @@ return [
         'instagram_followers' => '1.174',
         'instagram_posts'     => '408',
         'youtube_handle'      => '@YayasanPelitaBahagia',
+        'tiktok_handle'       => '@yayasanpelita',
     ],
 
     // ── KUTIPAN / TESTIMONI BERANDA ───────────────────────────────────────
     // Kosongkan 'text' untuk menyembunyikan blok ini dari beranda.
     'quote' => [
-        'text'   => 'Melihat binar mata anak-anak memegang buku baru adalah alasan kami terus bergerak. Setiap donasi adalah pelita yang tidak akan pernah padam.',
+        'text'   => '',
         'author' => '',
         'role'   => '',
     ],
 
     // ── KISAH YAYASAN (halaman Tentang) ───────────────────────────────────
         'story' => [
+            'lead'        => 'Yayasan Pelita Bahagia Anak Nusantara lahir dari sebuah keyakinan sederhana bahwa setiap anak, tanpa memandang latar belakangnya, berhak bermimpi dan meraih cita-cita yang gemilang.',
             'heading'     => 'Berawal dari Sebuah Ruang Belajar Bambu di Tahun 2021',
-            'paragraph_1' => 'Pelita Bahagia bermula dari sebuah ruang belajar bambu di desa pedalaman Sumba tahun 2021. Saat itu, sekelompok relawan mengajar membaca dan berhitung kepada 30 anak yang putus sekolah akibat jarak sekolah terlalu jauh.',
-            'paragraph_2' => 'Dari ruang bambu itu, gerakan kecil ini tumbuh menjadi yayasan berbadan hukum yang kini menjangkau ribuan anak di 24 desa pelosok Nusa Tenggara Timur. Kami percaya bahwa setiap anak, siapapun dan dimanapun dilahirkan, berhak bermimpi dan meraih masa depan.',
+            'paragraph_1' => 'Pelita Bahagia bermula dari sebuah ruang belajar bambu di desa pedalaman tahun 2021. Saat itu, sekelompok relawan mengajar membaca dan berhitung kepada 30 anak yang putus sekolah akibat keterbatasan sarana belajar.',
+            'paragraph_2' => 'Dari ruang bambu itu, gerakan kecil ini tumbuh menjadi yayasan berbadan hukum yang kini menjangkau ribuan anak di berbagai pelosok nusantara. Kami percaya bahwa setiap anak, siapapun dan dimanapun dilahirkan, berhak bermimpi dan mengenyam pendidikan yang layak.',
         ],
 
         // ── MISI UTAMA (kartu besar di hero beranda) ──────────────────────────
         'mission' => [
             'badge' => 'Misi Utama 2026',
             'quote' => 'Ketika satu anak terdidik, satu generasi terselamatkan.',
-            'body'  => 'Tahun ini kami menargetkan 2.500 anak terbantu melalui beasiswa, intervensi gizi, dan pemberdayaan keluarga di 24 desa binaan.',
+            'body'  => 'Tahun ini kami menargetkan 2.500 anak terbantu melalui beasiswa, fasilitas penunjang belajar, nutrisi sehat, dan berbagai aksi kepedulian sosial di pelosok nusantara.',
         ],
     ];
