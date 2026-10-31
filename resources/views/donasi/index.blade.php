@@ -179,7 +179,7 @@
         <div class="mt-6">
           {{-- Progress --}}
           <div class="w-full h-2.5 rounded-full bg-paper-warm overflow-hidden">
-            <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600" style="width: {{ $heroPercent }}%"></div>
+            <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600 progress-bar-shimmer" style="width: {{ $heroPercent }}%"></div>
           </div>
           <div class="flex items-end justify-between mt-3 gap-3 flex-wrap">
             <div>
@@ -298,7 +298,7 @@
                 <span class="text-ink-muted">{{ $percent }}%</span>
               </div>
               <div class="w-full h-2 rounded-full bg-paper-warm overflow-hidden">
-                <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600" style="width: {{ $percent }}%"></div>
+                <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600 progress-bar-shimmer" style="width: {{ $percent }}%"></div>
               </div>
               <div class="flex items-center justify-between text-[10px] text-ink-muted mt-1.5">
                 <span>dari {{ $formatRupiah($c['target']) }}</span>

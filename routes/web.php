@@ -310,3 +310,4 @@ Route::get('/donasi/{slug}', function (string $slug) {
         'categories' => cciCampaignCategories(),
     ]);
 })->name('donasi.show');
+

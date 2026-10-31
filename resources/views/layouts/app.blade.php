@@ -24,6 +24,9 @@
 </head>
 <body class="bg-paper text-ink selection:bg-primary-500 selection:text-white antialiased flex flex-col min-h-screen">
 
+  {{-- Micro Scroll Progress Bar di paling atas layar --}}
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] z-50 bg-gradient-to-r from-primary-500 via-sun-400 to-forest-500 transition-all duration-75 pointer-events-none" style="width: 0%;"></div>
+
   {{-- Floating Pill Navbar --}}
   <header class="sticky top-2 sm:top-4 z-40 px-3 sm:px-6 pointer-events-none">
     <div class="max-w-6xl mx-auto pointer-events-auto">
@@ -345,6 +348,73 @@
       } catch (e) {}
 
       paint();
+    })();
+  </script>
+
+  {{-- Tombol Melayang Kembali ke Atas --}}
+  <button 
+    id="back-to-top" 
+    type="button" 
+    aria-label="Kembali ke atas" 
+    class="fixed bottom-20 md:bottom-7 right-4 sm:right-7 z-40 w-11 h-11 rounded-full bg-surface/90 text-ink hover:text-accent-primary border border-line shadow-warm flex items-center justify-center transition-all duration-300 opacity-0 translate-y-3 pointer-events-none hover:scale-105 active:scale-95 backdrop-blur-md"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  {{-- Micro-interactions & Scroll Effects Script --}}
+  <script>
+    (function () {
+      const progressBar = document.getElementById('scroll-progress');
+      const mainNav = document.getElementById('main-nav');
+      const backToTop = document.getElementById('back-to-top');
+
+      function onScroll() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+        if (progressBar) {
+          progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+        }
+
+        if (mainNav) {
+          mainNav.classList.toggle('nav-scrolled', scrollTop > 24);
+        }
+
+        if (backToTop) {
+          const show = scrollTop > 380;
+          backToTop.classList.toggle('opacity-0', !show);
+          backToTop.classList.toggle('translate-y-3', !show);
+          backToTop.classList.toggle('pointer-events-none', !show);
+          backToTop.classList.toggle('opacity-100', show);
+          backToTop.classList.toggle('translate-y-0', show);
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      if (backToTop) {
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Smooth Scroll Reveal for elements with class .reveal-on-scroll
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+      }
     })();
   </script>
 </body>

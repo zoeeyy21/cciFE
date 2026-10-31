@@ -25,11 +25,10 @@
 
         {{-- WhatsApp Card (hanya tampil kalau nomor sudah diisi) --}}
         @if($site['whatsapp_link'])
-        <div class="bento-card p-7 text-white relative overflow-hidden shadow-warm-lg"
-          style="background: linear-gradient(135deg, #c4552e 0%, #8a361c 100%);">
-          <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl"></div>
+        <div class="bento-card p-7 bg-gradient-to-br from-forest-900 to-forest-950 text-white relative overflow-hidden shadow-warm-lg">
+          <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-forest-700/30 blur-xl"></div>
           <h3 class="font-serif font-bold text-2xl text-white">Konsultasi Donasi via WhatsApp</h3>
-          <p class="text-xs text-primary-50/90 mt-2 leading-relaxed">
+          <p class="text-xs text-forest-200/80 mt-2 leading-relaxed">
             Tim layanan donatur kami siap membantu konfirmasi transfer, laporan pertanggungjawaban, dan konsultasi program.
           </p>
           <a href="{{ $site['whatsapp_link'] }}" target="_blank" rel="noopener" class="btn-pill btn-sun !py-3 !px-5 text-xs font-bold mt-6 inline-flex items-center gap-2 shadow-warm">

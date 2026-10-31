@@ -153,7 +153,7 @@
               <p class="text-[11px] text-ink-muted mb-3">terkumpul dari target {{ $formatFull($campaign['target']) }}</p>
 
               <div class="w-full h-3 rounded-full bg-paper-warm overflow-hidden">
-                <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600"
+                <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600 progress-bar-shimmer"
                   style="width: {{ $percent }}%"></div>
               </div>
 
@@ -317,7 +317,7 @@
                   <span class="text-ink-muted">{{ $oPercent }}%</span>
                 </div>
                 <div class="w-full h-2 rounded-full bg-paper-warm overflow-hidden">
-                  <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600"
+                  <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600 progress-bar-shimmer"
                     style="width: {{ $oPercent }}%"></div>
                 </div>
               </div>

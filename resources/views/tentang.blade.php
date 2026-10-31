@@ -86,7 +86,7 @@
   </section>
 
   {{-- Manifesto / Cerita Pendiri --}}
-  <section id="perjalanan-awal" class="py-16 sm:py-20 bg-surface border-y border-line/60 scroll-mt-20">
+  <section id="perjalanan-awal" class="py-16 sm:py-20 bg-surface border-y border-line/60 scroll-mt-20 reveal-on-scroll">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
       {{-- Perjalanan Awal --}}
@@ -128,13 +128,12 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-12 sm:mt-16 items-stretch">
         {{-- Card 1: Visi Utama --}}
         <div
-          class="bento-card p-7 sm:p-8 text-white relative overflow-hidden flex flex-col justify-between shadow-warm-lg"
-          style="background: linear-gradient(135deg, #c4552e 0%, #8a361c 100%);">
-          <div class="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none">
+          class="bento-card p-7 sm:p-8 bg-gradient-to-br from-forest-900 to-forest-950 text-white relative overflow-hidden flex flex-col justify-between shadow-warm-lg">
+          <div class="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-forest-700/40 blur-2xl pointer-events-none">
           </div>
           <div class="relative z-10 space-y-4">
             <h3 class="font-serif font-bold text-2xl text-sun-300">Visi Utama</h3>
-            <p class="text-sm sm:text-base text-primary-50/95 leading-relaxed">
+            <p class="text-sm sm:text-base text-forest-100/90 leading-relaxed">
               Menjadi episentrum kebaikan dan perlindungan anak nomor satu di Indonesia yang mewujudkan generasi penerus
               berdaya saing, berakhlak mulia, dan sehat paripurna.
             </p>
@@ -143,25 +142,24 @@
 
         {{-- Card 2: Misi Gerakan --}}
         <div
-          class="bento-card p-7 sm:p-8 text-white relative overflow-hidden flex flex-col justify-between shadow-warm-lg"
-          style="background: linear-gradient(135deg, #c4552e 0%, #8a361c 100%);">
-          <div class="absolute -bottom-10 -right-10 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none">
+          class="bento-card p-7 sm:p-8 bg-gradient-to-br from-forest-900 to-forest-950 text-white relative overflow-hidden flex flex-col justify-between shadow-warm-lg">
+          <div class="absolute -bottom-10 -right-10 w-48 h-48 rounded-full bg-forest-700/40 blur-2xl pointer-events-none">
           </div>
           <div class="relative z-10 space-y-4">
             <h3 class="font-serif font-bold text-2xl text-sun-300">Misi Utama</h3>
-            <ul class="space-y-3 text-xs sm:text-sm text-primary-50/95">
+            <ul class="space-y-3 text-xs sm:text-sm text-forest-100/90">
               <li class="flex items-start gap-2.5">
-                <span class="text-sun-300 font-bold shrink-0 mt-0.5">&check;</span>
+                <span class="text-sun-400 font-bold shrink-0 mt-0.5">&check;</span>
                 <span class="leading-relaxed">Menyediakan akses beasiswa dan fasilitas pendidikan merata hingga pelosok
                   desa.</span>
               </li>
               <li class="flex items-start gap-2.5">
-                <span class="text-sun-300 font-bold shrink-0 mt-0.5">&check;</span>
+                <span class="text-sun-400 font-bold shrink-0 mt-0.5">&check;</span>
                 <span class="leading-relaxed">Mencegah stunting dan malnutrisi lewat intervensi makanan bergizi dan air
                   bersih.</span>
               </li>
               <li class="flex items-start gap-2.5">
-                <span class="text-sun-300 font-bold shrink-0 mt-0.5">&check;</span>
+                <span class="text-sun-400 font-bold shrink-0 mt-0.5">&check;</span>
                 <span class="leading-relaxed">Membangun ekosistem keluarga mandiri melalui edukasi vokasi orang tua
                   asuh.</span>
               </li>
@@ -174,7 +172,7 @@
   </section>
 
   {{-- Bento Nilai-Nilai Utama --}}
-  <section class="py-16 sm:py-24 bg-paper">
+  <section class="py-16 sm:py-24 bg-paper reveal-on-scroll">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
         <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink mt-3">Prinsip yang Menggerakkan Kami</h2>
@@ -276,7 +274,7 @@
       }
     }
   @endphp
-  <section class="py-16 sm:py-24 bg-paper-warm border-t border-line/60" id="struktur-organisasi">
+  <section class="py-16 sm:py-24 bg-paper-warm border-t border-line/60 reveal-on-scroll" id="struktur-organisasi">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
         <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink mt-3">
