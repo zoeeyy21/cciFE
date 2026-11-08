@@ -6,15 +6,15 @@
   aria-modal="true"
   aria-labelledby="qris-modal-title"
 >
-  <div class="relative w-full max-w-md bg-surface rounded-3xl border border-line shadow-2xl overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
+  <div class="relative w-full max-w-md bg-surface rounded-3xl border border-line shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh] animate-in fade-in zoom-in-95 duration-200">
     
     {{-- Header Modal QRIS --}}
-    <div class="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 px-6 py-4 text-white flex items-center justify-between">
+    <div class="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 px-5 sm:px-6 py-3.5 text-white flex items-center justify-between shrink-0">
       <div class="flex items-center gap-2">
-        <div class="bg-white px-2 py-0.5 rounded font-black text-red-600 text-xs tracking-tighter">
+        <div class="bg-white px-2 py-0.5 rounded font-black text-red-600 text-xs tracking-tighter shadow-sm">
           QRIS
         </div>
-        <span class="text-xs font-semibold tracking-wide text-white/90">Standar Pembayaran Nasional</span>
+        <span class="text-xs font-semibold tracking-wide text-white/95">Standar Pembayaran Nasional</span>
       </div>
       <button 
         type="button" 
@@ -28,13 +28,13 @@
       </button>
     </div>
 
-    {{-- Body Modal --}}
-    <div class="p-6 text-center space-y-4">
+    {{-- Body Modal (Scrollable jika layar pendek) --}}
+    <div class="p-5 sm:p-6 text-center space-y-3.5 overflow-y-auto flex-1">
       
       {{-- Info Penerima --}}
       <div>
-        <p class="text-[11px] font-bold uppercase tracking-wider text-ink-muted">Penerima Donasi</p>
-        <h3 id="qris-modal-title" class="font-serif font-bold text-base sm:text-lg text-ink mt-0.5">
+        <p class="text-[10px] font-bold uppercase tracking-wider text-ink-muted">Penerima Donasi</p>
+        <h3 id="qris-modal-title" class="font-serif font-bold text-base sm:text-lg text-ink mt-0.5 leading-snug">
           {{ $site['name'] ?? 'Yayasan Pelita Bahagia Anak Nusantara' }}
         </h3>
         <p id="qris-campaign-name" class="text-xs text-accent-primary font-medium mt-0.5 line-clamp-1">
@@ -44,7 +44,7 @@
 
       {{-- Total Nominal Donasi --}}
       <div class="py-2.5 px-4 rounded-2xl bg-paper-warm border border-line">
-        <span class="block text-[10px] sm:text-[11px] font-semibold text-ink-muted uppercase tracking-wider">Total Pembayaran</span>
+        <span class="block text-[10px] font-semibold text-ink-muted uppercase tracking-wider">Total Pembayaran</span>
         <span id="qris-modal-amount" class="block font-serif text-2xl sm:text-3xl font-bold text-accent-forest mt-0.5">
           Rp 50.000
         </span>
@@ -56,17 +56,17 @@
       </div>
 
       {{-- Container Gambar QR Code --}}
-      <div class="relative mx-auto w-56 sm:w-60 p-4 bg-white rounded-2xl border-2 border-line shadow-warm flex flex-col items-center justify-center">
+      <div class="relative mx-auto w-56 sm:w-60 p-3.5 bg-white rounded-2xl border-2 border-line shadow-warm flex flex-col items-center justify-center">
         {{-- Logo QRIS & GPN di atas QR --}}
-        <div class="w-full flex items-center justify-between px-2 pb-2 border-b border-gray-100 mb-2">
+        <div class="w-full flex items-center justify-between px-1 pb-1.5 border-b border-gray-100 mb-2">
           <span class="font-black text-[13px] tracking-tight text-red-600">QRIS</span>
           <span class="text-[9px] font-bold text-gray-500 tracking-wider uppercase">GPN</span>
         </div>
 
         {{-- QR Code Display --}}
-        <div class="relative w-44 h-44 bg-white flex items-center justify-center">
+        <div class="relative w-44 h-44 bg-white flex items-center justify-center" id="qris-code-container">
           {{-- Authentic Vector QR Pattern --}}
-          <svg class="w-full h-full text-gray-900" viewBox="0 0 100 100" fill="currentColor">
+          <svg id="qris-svg-code" class="w-full h-full text-gray-900" viewBox="0 0 100 100" fill="currentColor">
             <!-- Corner Finder Pattern: Top-Left -->
             <rect x="5" y="5" width="26" height="26" fill="currentColor" rx="3"/>
             <rect x="9" y="9" width="18" height="18" fill="white" rx="2"/>
@@ -136,20 +136,39 @@
         <p class="text-[10px] text-gray-500 font-medium mt-2">
           Pindai dengan aplikasi pembayaran apa saja
         </p>
+
+        {{-- Tombol Unduh QR (Memudahkan Donatur Mobile) --}}
+        <button 
+          type="button" 
+          id="qris-download-btn"
+          class="mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-bold text-forest-700 hover:text-forest-800 transition-colors py-1 px-2.5 rounded-lg hover:bg-forest-50"
+        >
+          <svg class="w-3.5 h-3.5 text-forest-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span>Unduh Gambar QR</span>
+        </button>
       </div>
 
-      {{-- Timer Masa Berlaku --}}
-      <div class="flex items-center justify-center gap-1.5 text-xs text-ink-muted">
-        <svg class="w-4 h-4 text-accent-primary animate-spin" style="animation-duration: 3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" stroke-width="2" stroke-dasharray="30 10"/>
-        </svg>
-        <span>Selesaikan dalam <strong id="qris-countdown" class="font-mono text-accent-primary font-bold">14:59</strong></span>
+      {{-- Petunjuk Pembayaran Jelas untuk Donatur --}}
+      <div class="p-3.5 rounded-2xl bg-paper-warm border border-line text-left space-y-1.5">
+        <p class="font-bold text-[11px] uppercase tracking-wider text-forest-700 dark:text-sun-300 flex items-center gap-1.5">
+          <svg class="w-4 h-4 shrink-0 text-forest-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Langkah Mudah Donasi:
+        </p>
+        <ol class="list-decimal list-inside text-[11px] text-ink-muted space-y-1 leading-snug">
+          <li>Buka aplikasi m-Banking atau e-Wallet (BCA, BRI, GoPay, Dana, dll).</li>
+          <li>Pindai (scan) kode QR di atas atau gunakan gambar QR yang diunduh.</li>
+          <li>Periksa nominal &amp; selesaikan pembayaran.</li>
+          <li>Setelah transfer berhasil, <strong>tekan tombol "Saya Sudah Membayar"</strong> di bawah.</li>
+        </ol>
       </div>
 
       {{-- Logo Dompet Digital yang Didukung --}}
-      <div class="pt-2 border-t border-line-soft">
-        <p class="text-[10px] text-ink-muted mb-2 font-medium">Mendukung Semua Dompet Digital & Mobile Banking:</p>
-        <div class="flex items-center justify-center gap-2 text-[10px] font-bold text-ink-muted flex-wrap">
+      <div class="pt-1">
+        <div class="flex items-center justify-center gap-1.5 text-[10px] font-bold text-ink-muted flex-wrap">
           <span class="px-2 py-0.5 rounded-md bg-paper-warm border border-line">BCA</span>
           <span class="px-2 py-0.5 rounded-md bg-paper-warm border border-line">Mandiri</span>
           <span class="px-2 py-0.5 rounded-md bg-paper-warm border border-line">BRI</span>
@@ -160,27 +179,28 @@
         </div>
       </div>
 
-      {{-- Tombol Aksi --}}
-      <div class="space-y-2 pt-2">
-        <button 
-          type="button" 
-          id="qris-btn-paid" 
-          class="btn-pill btn-primary w-full !py-3.5 text-sm font-bold shadow-warm flex items-center justify-center gap-2"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-          </svg>
-          Saya Sudah Membayar
-        </button>
-        <button 
-          type="button" 
-          id="qris-btn-cancel" 
-          class="w-full text-xs text-ink-muted hover:text-ink font-semibold py-1.5 transition-colors"
-        >
-          Batal / Ubah Nominal
-        </button>
-      </div>
+    </div>
 
+    {{-- Tombol Aksi (Sticky / Selalu Terlihat di Bagian Bawah) --}}
+    <div class="p-4 sm:p-5 bg-surface border-t border-line-soft space-y-2 shrink-0">
+      <button 
+        type="button" 
+        id="qris-btn-paid" 
+        class="btn-pill btn-primary w-full !py-3.5 text-sm font-bold shadow-warm-lg flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+      >
+        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Saya Sudah Membayar</span>
+      </button>
+
+      <button 
+        type="button" 
+        id="qris-btn-cancel" 
+        class="w-full text-xs text-ink-muted hover:text-ink font-semibold py-1 transition-colors text-center"
+      >
+        Batal / Ubah Donasi
+      </button>
     </div>
 
   </div>
@@ -194,34 +214,11 @@ window.initQrisPayment = function(formSelector, getAmountFn, getTitleFn) {
   const closeBtn = document.getElementById('qris-modal-close');
   const cancelBtn = document.getElementById('qris-btn-cancel');
   const paidBtn = document.getElementById('qris-btn-paid');
+  const downloadBtn = document.getElementById('qris-download-btn');
   const amountEl = document.getElementById('qris-modal-amount');
   const campaignEl = document.getElementById('qris-campaign-name');
-  const countdownEl = document.getElementById('qris-countdown');
-
-  let timerInterval = null;
 
   if (!form || !modal) return;
-
-  function startCountdown() {
-    let timeLeft = 15 * 60; // 15 menit
-    clearInterval(timerInterval);
-    
-    function updateDisplay() {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      if (countdownEl) {
-        countdownEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      }
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        closeModal();
-      }
-      timeLeft--;
-    }
-    
-    updateDisplay();
-    timerInterval = setInterval(updateDisplay, 1000);
-  }
 
   function openModal() {
     const rawAmount = typeof getAmountFn === 'function' ? getAmountFn() : 50000;
@@ -231,22 +228,30 @@ window.initQrisPayment = function(formSelector, getAmountFn, getTitleFn) {
     if (amountEl) amountEl.textContent = formatted;
     if (campaignEl) campaignEl.textContent = campaignTitle;
 
+    // Reset tombol jika dibuka kembali
+    if (paidBtn) {
+      paidBtn.disabled = false;
+      paidBtn.innerHTML = `
+        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Saya Sudah Membayar</span>
+      `;
+    }
+
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    startCountdown();
   }
 
   function closeModal() {
     modal.classList.add('hidden');
     document.body.style.overflow = '';
-    clearInterval(timerInterval);
   }
 
   // Intercept submit form donasi
   form.addEventListener('submit', function (e) {
-    // Validasi HTML5 bawaan
     if (!form.checkValidity()) {
-      return; // Biarkan browser menampilkan error validasi
+      return;
     }
     
     e.preventDefault();
@@ -265,12 +270,52 @@ window.initQrisPayment = function(formSelector, getAmountFn, getTitleFn) {
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
-        Memverifikasi Pembayaran...
+        <span>Memverifikasi Pembayaran...</span>
       `;
-      // Submit form ke handler
+
       setTimeout(() => {
-        form.submit();
-      }, 1000);
+        paidBtn.innerHTML = `
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Pembayaran Terverifikasi! Mengalihkan...</span>
+        `;
+        setTimeout(() => {
+          form.submit();
+        }, 600);
+      }, 700);
+    });
+  }
+
+  // Unduh Gambar QR untuk kemudahan pengguna HP
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', function () {
+      try {
+        const svgEl = document.getElementById('qris-svg-code');
+        if (!svgEl) return;
+
+        const svgData = new XMLSerializer().serializeToString(svgEl);
+        const canvas = document.createElement('canvas');
+        canvas.width = 500;
+        canvas.height = 500;
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        img.onload = function () {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, 500, 500);
+          ctx.drawImage(img, 25, 25, 450, 450);
+
+          const a = document.createElement('a');
+          a.download = 'qris-donasi-pelita.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+        };
+
+        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+      } catch (err) {
+        console.error('Gagal mengunduh QR:', err);
+      }
     });
   }
 

@@ -28,44 +28,74 @@
 
 return [
 
-    // ── PROGRAM PENDIDIKAN UTAMA (TEBAR PAKET SEKOLAH) ───────────────────
+    // ── PROGRAM PENDIDIKAN UTAMA (TEBAR PAKET SEKOLAH - TIPE: KOMBINASI) ─
     [
-        'slug'         => 'tebar-paket-sekolah',
-        'title'        => 'Tebar Paket Sekolah Anak Nusantara',
-        'summary'      => 'Bantuan paket tas sekolah, buku pelajaran, dan fasilitas pendukung belajar bagi anak-anak nusantara.',
-        'category'     => 'pendidikan',
-        'organization' => 'Yayasan Pelita Bahagia Anak Nusantara',
-        'location'     => 'Pelosok Nusantara',
-        'raised'       => 18450000,
-        'target'       => 28000000,
-        'donors'       => 342,
-        'days_left'    => 28,
-        'urgent'       => false,
-        'verified'     => true,
-        'image'        => 'campaigns/tebar-paket-sekolah.jpg',
-        'story'        => [
+        'slug'          => 'tebar-paket-sekolah',
+        'title'         => 'Tebar Paket Sekolah Anak Nusantara',
+        'summary'       => 'Bantuan paket tas sekolah, buku pelajaran, dan fasilitas pendukung belajar bagi anak-anak nusantara.',
+        'category'      => 'pendidikan',
+        'organization'  => 'Yayasan Pelita Bahagia Anak Nusantara',
+        'location'      => 'Pelosok Nusantara',
+        'raised'        => 18450000,
+        'target'        => 28000000,
+        'donors'        => 342,
+        'days_left'     => 28,
+        'urgent'        => false,
+        'verified'      => true,
+        'image'         => 'campaigns/tebar-paket-sekolah.jpg',
+        'donation_type' => 'both', // 'both' = bisa paket, bisa nominal minimal
+        'min_donation'  => 28000,
+        'packages'      => [
+            [
+                'id'          => 'paket-sekolah-1',
+                'name'        => 'Paket Perlengkapan Belajar',
+                'price'       => 28000,
+                'unit'        => '/ paket',
+                'badge'       => 'TERMURAH',
+                'description' => 'Tas sekolah, buku tulis & set alat tulis lengkap 1 anak'
+            ],
+            [
+                'id'          => 'paket-sekolah-2',
+                'name'        => 'Paket Sekolah + Seragam Baru',
+                'price'       => 75000,
+                'unit'        => '/ paket',
+                'badge'       => 'FAVORIT',
+                'description' => 'Tas, alat tulis & sepasang seragam sekolah baru'
+            ],
+            [
+                'id'          => 'paket-sekolah-3',
+                'name'        => 'Paket Belajar Juara Komplit',
+                'price'       => 150000,
+                'unit'        => '/ paket',
+                'badge'       => 'LENGKAP',
+                'description' => 'Tas, seragam, sepatu & modul buku pelajaran semester'
+            ],
+        ],
+        'story'         => [
             'Program Tebar Paket Sekolah diinisiasi oleh Yayasan Pelita Bahagia Anak Nusantara dalam momentum Hari Sumpah Pemuda. Melalui gerakan "Menyalakan Pelita untuk Pendidikan Anak Nusantara", bantuan disalurkan berupa tas sekolah baru, buku pelajaran, buku tulis, dan fasilitas penunjang belajar bagi anak-anak di pelosok nusantara.',
             'Sedekah mulai dari Rp 28.000 membuka kesempatan bagi masyarakat luas untuk bersama-sama meringankan beban keluarga pra-sejahtera dan memastikan anak-anak Indonesia dapat bersekolah dengan penuh semangat dan rasa bangga.',
             'Seluruh donasi yang terkumpul akan disalurkan secara transparan dan dipertanggungjawabkan melalui laporan berkala di halaman Berita & Kegiatan yayasan.',
         ],
     ],
 
-    // ── KESEHATAN — paling mendesak ─────────────────────────────────────
+    // ── KESEHATAN (TIPE: MINIMAL DONASI) ───────────────────────────────
     [
-        'slug'         => 'bantu-operasi-jantung-dede',
-        'title'        => 'Bantu Operasi Jantung Dede Usia 7 Tahun',
-        'summary'      => 'Dede menderita kelainan katup jantung sejak lahir. Biaya operasi penuh mencapai Rp 200 juta, sementara ayahnya hanya penjual ikan keliling.',
-        'category'     => 'kesehatan',
-        'organization' => 'Tim Medis Pelita Bahagia',
-        'location'     => 'Sumba Barat, NTT',
-        'raised'       => 178500000,
-        'target'       => 200000000,
-        'donors'       => 2890,
-        'days_left'    => 3,
-        'urgent'       => true,
-        'verified'     => true,
-        'image'        => 'campaigns/dede.jpg',
-        'story'        => [
+        'slug'          => 'bantu-operasi-jantung-dede',
+        'title'         => 'Bantu Operasi Jantung Dede Usia 7 Tahun',
+        'summary'       => 'Dede menderita kelainan katup jantung sejak lahir. Biaya operasi penuh mencapai Rp 200 juta, sementara ayahnya hanya penjual ikan keliling.',
+        'category'      => 'kesehatan',
+        'organization'  => 'Tim Medis Pelita Bahagia',
+        'location'      => 'Sumba Barat, NTT',
+        'raised'        => 178500000,
+        'target'        => 200000000,
+        'donors'        => 2890,
+        'days_left'     => 3,
+        'urgent'        => true,
+        'verified'      => true,
+        'image'         => 'campaigns/dede.jpg',
+        'donation_type' => 'nominal', // 'nominal' = bebas nominal dengan batas minimal
+        'min_donation'  => 20000,
+        'story'         => [
             'Dede lahir dengan kondisi kelainan katup jantung bawaan yang membuatnya mudah lelah. Satu dekade berlalu, namun biaya operasi selalu menjadi penghalang. Ayahnya, seorang penjual ikan keliling, tak mampu menanggung biaya operasi yang mencapai Rp 200 juta.',
             'Tim dokter menyatakan operasi harus segera dilakukan bulan ini. Setiap hari yang berlalu, jantungnya bekerja semakin berat untuk memompa darah ke seluruh tubuhnya.',
             'Dana terkumpul akan digunakan untuk biaya operasi, rawat inap, dan pemulihan. Seluruh biaya akan dipertanggungjawabkan secara terbuka dengan bukti kuitansi resmi.',
@@ -116,22 +146,49 @@ return [
         ],
     ],
 
-    // ── PROGRAM KESEHATAN 1 ───────────────────────────────────────────────
+    // ── PROGRAM KESEHATAN 1 (TIPE: PAKET DONASI) ─────────────────────────
     [
-        'slug'         => 'piring-bergizi-anti-stunting',
-        'title'        => 'Piring Bergizi Anti-Stunting untuk 400 Balita NTT',
-        'summary'      => 'Paket makanan bergizi harian dan susu untuk 400 balita di 8 desa endemik stunting Nusa Tenggara Timur.',
-        'category'     => 'kesehatan',
-        'organization' => 'Tim Gizi Pelita Bahagia',
-        'location'     => 'Kabupaten Rote Ndao, NTT',
-        'raised'       => 23500000,
-        'target'       => 37500000,
-        'donors'       => 512,
-        'days_left'    => 12,
-        'urgent'       => true,
-        'verified'     => true,
-        'image'        => 'programs/piring-bergizi-anti-stunting.jpg',
-        'story'        => [
+        'slug'          => 'piring-bergizi-anti-stunting',
+        'title'         => 'Piring Bergizi Anti-Stunting untuk 400 Balita NTT',
+        'summary'       => 'Paket makanan bergizi harian dan susu untuk 400 balita di 8 desa endemik stunting Nusa Tenggara Timur.',
+        'category'      => 'kesehatan',
+        'organization'  => 'Tim Gizi Pelita Bahagia',
+        'location'      => 'Kabupaten Rote Ndao, NTT',
+        'raised'        => 23500000,
+        'target'        => 37500000,
+        'donors'        => 512,
+        'days_left'     => 12,
+        'urgent'        => true,
+        'verified'      => true,
+        'image'         => 'programs/piring-bergizi-anti-stunting.jpg',
+        'donation_type' => 'package', // 'package' = murni sedekah per paket
+        'packages'      => [
+            [
+                'id'          => 'gizi-1',
+                'name'        => 'Paket Piring Bergizi Balita',
+                'price'       => 25000,
+                'unit'        => '/ paket',
+                'badge'       => 'TERMURAH',
+                'description' => 'Telur, susu formula, sayur organik & bubur gizi balita'
+            ],
+            [
+                'id'          => 'gizi-2',
+                'name'        => 'Paket Pangan Bergizi 1 Pekan',
+                'price'       => 100000,
+                'unit'        => '/ paket',
+                'badge'       => 'FAVORIT',
+                'description' => 'Asupan protein hewani & suplemen vitamin balita 1 pekan'
+            ],
+            [
+                'id'          => 'gizi-3',
+                'name'        => 'Paket Intervensi Posyandu 1 Bulan',
+                'price'       => 350000,
+                'unit'        => '/ paket',
+                'badge'       => 'LENGKAP',
+                'description' => 'Pendampingan gizi intensif balita pra-sejahtera 1 bulan'
+            ],
+        ],
+        'story'         => [
             'Angka stunting di wilayah pelosok NTT masih memerlukan perhatian serius. Balita kekurangan asupan protein hewani dan zat gizi mikro esensial pada 1.000 hari pertama kehidupan.',
             'Kampanye Piring Bergizi menyalurkan paket makanan bergizi (telur, susu, ikan, dan kacang-kacangan) setiap hari untuk 400 balita yang dipantau langsung oleh kader posyandu.',
             'Penimbangan berat badan dan pengukuran tinggi badan dilakukan berkala untuk memastikan penurunan angka stunting nyata.',

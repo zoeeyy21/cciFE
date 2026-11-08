@@ -6,7 +6,6 @@
   $totalCampaign = count($campaignList);
   $totalRaised   = collect($campaignList)->sum('raised');
   $totalDonors   = collect($campaignList)->sum('donors');
-  $totalTarget   = collect($campaignList)->sum('target');
 
   $formatRupiah = function (int $n) {
       if ($n >= 1000000000) return 'Rp ' . number_format($n / 1000000000, 1, ',', '.') . ' M';
@@ -56,22 +55,18 @@
     </div>
 
     {{-- Ringkasan Capaian --}}
-    <div class="mt-7 sm:mt-9 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
- <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
+    <div class="mt-7 sm:mt-9 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+      <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
         <span class="block font-serif text-xl sm:text-3xl font-bold text-accent-primary">{{ $totalCampaign }}</span>
         <span class="block text-[10px] sm:text-xs text-ink-muted mt-0.5">Kampanye Aktif</span>
       </div>
- <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
+      <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
         <span class="block font-serif text-xl sm:text-3xl font-bold text-accent-forest">{{ $formatRupiah($totalRaised) }}</span>
         <span class="block text-[10px] sm:text-xs text-ink-muted mt-0.5">Dana Terkumpul</span>
       </div>
- <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
-   <span class="block font-serif text-xl sm:text-3xl font-bold text-sun-600">{{ number_format($totalDonors, 0, ',', '.') }}</span>
-   <span class="block text-[10px] sm:text-xs text-ink-muted mt-0.5">Donatur Berbagi</span>
- </div>
- <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
-        <span class="block font-serif text-xl sm:text-3xl font-bold text-ink">{{ $formatRupiah($totalTarget) }}</span>
-        <span class="block text-[10px] sm:text-xs text-ink-muted mt-0.5">Total Target</span>
+      <div class="bento-card p-4 sm:p-5 text-center sm:text-left">
+        <span class="block font-serif text-xl sm:text-3xl font-bold text-sun-600">{{ number_format($totalDonors, 0, ',', '.') }}</span>
+        <span class="block text-[10px] sm:text-xs text-ink-muted mt-0.5">Donatur Berbagi</span>
       </div>
     </div>
   </div>

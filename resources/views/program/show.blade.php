@@ -98,7 +98,86 @@
       </div>
     @endif
 
+    {{-- Bottom Navigation --}}
+    <div class="mt-12 pt-8 border-t border-line-soft flex items-center justify-between flex-wrap gap-4">
+      <a href="{{ url('/program') }}" class="btn-pill btn-outline text-xs font-bold">
+        &larr; Lihat Seluruh Program
+      </a>
+    </div>
+
   </div>
 </section>
+
+{{-- ═══════════════ KEGIATAN LAINNYA DARI PROGRAM INI (1 ROW) ═══════════════ --}}
+@if(!empty($relatedActivities) && count($relatedActivities) > 0)
+  @php
+    $displayActivities = array_slice($relatedActivities, 0, 3);
+    $cardCount = count($displayActivities);
+    $colClass = $cardCount === 1 ? 'md:grid-cols-1 md:max-w-sm' : ($cardCount === 2 ? 'sm:grid-cols-2 sm:max-w-2xl' : 'sm:grid-cols-2 lg:grid-cols-3');
+  @endphp
+  <section class="py-12 sm:py-16 bg-surface border-t border-line/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between mb-6 sm:mb-8 flex-wrap gap-4">
+        <div class="flex items-center gap-2.5">
+          <span class="w-1.5 h-6 rounded-full bg-accent-primary"></span>
+          <h2 class="font-serif text-xl sm:text-2xl font-bold text-ink">
+            Kegiatan Terkait Program Ini
+          </h2>
+        </div>
+        <span class="badge-pill bg-paper-warm border border-line text-ink-muted text-xs font-medium">
+          {{ count($relatedActivities) }} Kegiatan Terlaksana
+        </span>
+      </div>
+
+      {{-- 1 Row Layout: Flex Horizontal Scroll on Mobile, Grid 1 Row on Desktop --}}
+      <div class="flex sm:grid {{ $colClass }} gap-5 sm:gap-6 overflow-x-auto pb-4 sm:pb-0 scrollbar-none snap-x -mx-4 px-4 sm:mx-0 sm:px-0">
+        @foreach($displayActivities as $act)
+          <a href="{{ url('/kegiatan/'.$act->slug) }}" class="bento-card group flex flex-col justify-between overflow-hidden hover:shadow-warm-lg hover:-translate-y-1 transition-all duration-300 w-[280px] sm:w-auto shrink-0 snap-start">
+            <div>
+              {{-- Cover Photo --}}
+              <div class="h-44 sm:h-48 overflow-hidden relative bg-paper-warm">
+                @if($act->cover)
+                  <img src="{{ asset('storage/'.$act->cover) }}" alt="{{ $act->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+                @else
+                  <div class="w-full h-full bg-paper-warm flex items-center justify-center text-ink-light">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                @endif
+                @if(!empty($act->date))
+                  <div class="absolute bottom-3 left-3 badge-pill bg-ink/75 text-white text-[10px] backdrop-blur-md">
+                    {{ \Carbon\Carbon::parse($act->date)->format('d M Y') }}
+                  </div>
+                @endif
+              </div>
+
+              {{-- Content --}}
+              <div class="p-5">
+                @if(!empty($act->location))
+                  <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-accent-primary mb-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    {{ $act->location }}
+                  </span>
+                @endif
+                <h3 class="font-serif font-bold text-base text-ink group-hover:text-accent-primary transition-colors line-clamp-2 leading-snug">
+                  {{ $act->title }}
+                </h3>
+                @if(!empty($act->summary))
+                  <p class="text-xs text-ink-muted mt-2 line-clamp-2 leading-relaxed">
+                    {{ $act->summary }}
+                  </p>
+                @endif
+              </div>
+            </div>
+
+            <div class="px-5 pb-5 pt-1 text-xs font-bold text-accent-primary group-hover:underline flex items-center gap-1.5">
+              <span>Baca Laporan Kegiatan</span>
+              <span>&rarr;</span>
+            </div>
+          </a>
+        @endforeach
+      </div>
+    </div>
+  </section>
+@endif
 
 @endsection

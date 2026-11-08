@@ -121,23 +121,20 @@
           
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <label class="block text-xs font-semibold text-ink mb-1">Nama Lengkap</label>
-              <input type="text" name="name" id="donor-name" placeholder="Nama Anda (Bisa Anonim)" value="{{ old('name') }}" class="input-premium" />
+              <label class="block text-xs font-semibold text-ink mb-1">Nama Lengkap <span class="text-accent-primary">*</span></label>
+              <input type="text" name="name" id="donor-name" placeholder="Nama Lengkap Anda" value="{{ old('name') }}" required class="input-premium transition-all" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-ink mb-1">No. WhatsApp <span class="text-accent-primary">*</span></label>
-              <input type="tel" name="phone" placeholder="08xxxxxxxxxx" value="{{ old('phone') }}" required class="input-premium" />
+              <input type="tel" name="phone" placeholder="Contoh: 0812xxxxxxxx" value="{{ old('phone') }}" required class="input-premium" />
             </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-ink mb-1">Alamat Email (Untuk Bukti & Laporan) <span class="text-accent-primary">*</span></label>
-            <input type="email" name="email" placeholder="nama@email.com" value="{{ old('email') }}" required class="input-premium" />
-          </div>
-
           <div class="flex items-center gap-2 pt-1">
-            <input type="checkbox" id="anon-check" class="rounded text-accent-primary focus:ring-primary-500 w-4 h-4 border-line-strong">
-            <label for="anon-check" class="text-xs text-ink-muted cursor-pointer select-none">Sembunyikan nama saya (Hamba Allah)</label>
+            <input type="checkbox" id="anon-check" class="rounded text-accent-primary focus:ring-primary-500 w-4 h-4 border-line-strong cursor-pointer">
+            <label for="anon-check" class="text-xs text-ink-muted cursor-pointer select-none">
+              Donasi sebagai <strong class="text-ink font-semibold">Hamba Allah</strong> (Nama disamarkan)
+            </label>
           </div>
         </div>
 
@@ -209,12 +206,13 @@
       anonCheck.addEventListener('change', () => {
         if (anonCheck.checked) {
           donorName.value = 'Hamba Allah';
-          donorName.disabled = true;
-          donorName.classList.add('bg-block', 'opacity-70');
+          donorName.readOnly = true;
+          donorName.classList.add('bg-paper-warm', 'text-ink-muted', 'cursor-not-allowed');
         } else {
           donorName.value = '';
-          donorName.disabled = false;
-          donorName.classList.remove('bg-block', 'opacity-70');
+          donorName.readOnly = false;
+          donorName.classList.remove('bg-paper-warm', 'text-ink-muted', 'cursor-not-allowed');
+          donorName.focus();
         }
       });
     }

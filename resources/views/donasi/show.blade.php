@@ -143,33 +143,18 @@
         <div class="lg:col-span-5">
           <div class="lg:sticky lg:top-24 space-y-5">
 
-            {{-- Kartu Progres --}}
+            {{-- Kartu Status Donatur & Sisa Hari --}}
             <div class="bento-card p-5 sm:p-6">
-              <div class="flex items-end justify-between gap-3 mb-1">
-                <span
-                  class="font-serif text-2xl sm:text-3xl font-bold text-ink">{{ $formatFull($campaign['raised']) }}</span>
-                <span class="font-serif text-xl sm:text-2xl font-bold text-accent-primary">{{ $percent }}%</span>
-              </div>
-              <p class="text-[11px] text-ink-muted mb-3">terkumpul dari target {{ $formatFull($campaign['target']) }}</p>
-
-              <div class="w-full h-3 rounded-full bg-paper-warm overflow-hidden">
-                <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-primary-600 progress-bar-shimmer"
-                  style="width: {{ $percent }}%"></div>
-              </div>
-
-              <div class="grid grid-cols-3 gap-2 mt-4 text-center">
-                <div class="p-2.5 rounded-xl bg-paper-warm">
+              <div class="grid grid-cols-2 gap-3 text-center">
+                <div class="p-3.5 rounded-2xl bg-paper-warm/90 border border-line/60">
                   <span
-                    class="block font-serif font-bold text-sm text-ink">{{ number_format($campaign['donors'], 0, ',', '.') }}</span>
-                  <span class="block text-[10px] text-ink-muted mt-0.5">Donatur</span>
+                    class="block font-serif font-bold text-2xl text-ink leading-tight">{{ number_format($campaign['donors'], 0, ',', '.') }}</span>
+                  <span class="block text-xs text-ink-muted mt-1 font-medium">Donatur</span>
                 </div>
-                <div class="p-2.5 rounded-xl bg-paper-warm">
-                  <span class="block font-serif font-bold text-sm text-accent-primary">{{ $campaign['days_left'] }}</span>
-                  <span class="block text-[10px] text-ink-muted mt-0.5">Hari Sisa</span>
-                </div>
-                <div class="p-2.5 rounded-xl bg-paper-warm">
-                  <span class="block font-serif font-bold text-sm text-accent-forest">{{ $formatRupiah($sisa) }}</span>
-                  <span class="block text-[10px] text-ink-muted mt-0.5">Kekurangan</span>
+                <div class="p-3.5 rounded-2xl bg-tint-primary/60 border border-tint-primary-line">
+                  <span
+                    class="block font-serif font-bold text-2xl text-accent-primary leading-tight">{{ $campaign['days_left'] }}</span>
+                  <span class="block text-xs text-ink-muted mt-1 font-medium">Hari Sisa</span>
                 </div>
               </div>
             </div>
@@ -197,41 +182,213 @@
               @endif
 
               <h2 class="font-serif text-lg font-bold text-ink mb-1">Donasi untuk Kampanye Ini</h2>
-              <p class="text-[11px] text-ink-muted mb-5">Pilih nominal, lalu lanjutkan ke pembayaran.</p>
+              <p class="text-[11px] text-ink-muted mb-4">Lengkapi identitas dan tentukan pilihan donasi terbaik Anda.</p>
 
-              <form action="{{ route('donasi.store') }}" method="POST" id="inline-donation-form" class="space-y-5">
+              @php
+                $donType = $campaign['donation_type'] ?? 'both'; // 'both', 'package', 'nominal'
+                $minDon = (int) ($campaign['min_donation'] ?? 28000);
+                $packages = $campaign['packages'] ?? [];
+                $initialMode = ($donType === 'nominal') ? 'nominal' : 'package';
+              @endphp
+
+              <form action="{{ route('donasi.store') }}" method="POST" id="inline-donation-form" class="space-y-4">
                 @csrf
                 <input type="hidden" name="campaign" value="{{ $campaign['slug'] }}" />
-
                 <input type="hidden" name="frequency" value="once" />
+                <input type="hidden" name="amount" id="inline-amount" value="0" />
+                <input type="hidden" name="donation_mode" id="inline-donation-mode" value="{{ $initialMode }}" />
+                <input type="hidden" name="package_name" id="inline-package-name" value="" />
+                <input type="hidden" name="package_qty" id="inline-package-qty" value="1" />
+                <input type="hidden" name="payment_method" value="qris" />
 
-                {{-- Data Donatur --}}
-                <div class="space-y-3 pt-3 border-t border-line-soft">
-                  <input type="text" name="name" placeholder="Nama kamu (opsional)" value="{{ old('name') }}"
-                    class="input-premium" />
-                  <input type="email" name="email" placeholder="Email untuk laporan donasi" value="{{ old('email') }}"
-                    required class="input-premium" />
-                  <input type="tel" name="phone" placeholder="Nomor WhatsApp (opsional)" value="{{ old('phone') }}"
-                    class="input-premium" />
-                  <div class="flex items-center gap-2">
+                {{-- 1. SWITCHER TIPE DONASI (Muncul jika tipe Kombinasi / 'both') --}}
+                @if($donType === 'both')
+                  <div class="p-1 rounded-2xl bg-paper-warm border border-line flex gap-1" id="donation-mode-switcher">
+                    <button 
+                      type="button" 
+                      id="tab-mode-package" 
+                      class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-surface text-forest-700 dark:text-sun-300 shadow-warm-sm border border-line"
+                    >
+                      <svg class="w-4 h-4 text-forest-600 dark:text-sun-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                      <span>Sedekah Paket</span>
+                    </button>
+                    <button 
+                      type="button" 
+                      id="tab-mode-nominal" 
+                      class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-ink-muted hover:text-ink"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <span>Nominal Bebas</span>
+                    </button>
+                  </div>
+                @endif
+
+                {{-- 2. DATA IDENTITAS DONATUR --}}
+                <div class="space-y-3 pt-1">
+                  <div>
+                    <label class="block text-xs font-semibold text-ink mb-1">Nama Donatur <span class="text-accent-primary">*</span></label>
+                    <input type="text" name="name" id="inline-name" placeholder="Nama Lengkap Anda" value="{{ old('name') }}"
+                      required class="input-premium transition-all" />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-ink mb-1">Nomor WhatsApp <span class="text-accent-primary">*</span></label>
+                    <input type="tel" name="phone" id="inline-phone" placeholder="Contoh: 0812xxxxxxxx" value="{{ old('phone') }}"
+                      required class="input-premium" />
+                  </div>
+
+                  <div class="flex items-center gap-2 pt-0.5">
                     <input type="checkbox" id="inline-anon"
-                      class="rounded text-accent-primary focus:ring-primary-500 w-4 h-4 border-line-strong">
-                    <label for="inline-anon" class="text-[11px] text-ink-muted cursor-pointer select-none">Donasi sebagai
-                      Hamba Allah</label>
+                      class="rounded text-accent-primary focus:ring-primary-500 w-4 h-4 border-line-strong cursor-pointer">
+                    <label for="inline-anon" class="text-xs text-ink-muted cursor-pointer select-none">
+                      Donasi sebagai <strong class="text-ink font-semibold">Hamba Allah</strong> (Nama disamarkan)
+                    </label>
                   </div>
                 </div>
 
-                {{-- METODE: Otomatis QRIS Instan --}}
-                <input type="hidden" name="payment_method" value="qris" />
+                {{-- 3. DI BAWAH FORM NOMOR: PILIHAN DONASI SESUAI MODE --}}
 
-                <button type="submit"
-                  class="btn-pill btn-primary w-full !py-3.5 text-sm font-bold shadow-warm-lg flex items-center justify-center gap-2">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                  Lanjutkan Pembayaran
-                </button>
+                {{-- 3A. FORM MODE PAKET --}}
+                <div id="section-package-mode" class="space-y-3 pt-3 border-t border-line-soft {{ ($initialMode !== 'package') ? 'hidden' : '' }}">
+                  <div class="flex items-center justify-between">
+                    <label class="block text-xs font-semibold text-ink">Pilih Paket Donasi</label>
+                    <span class="text-[11px] text-ink-muted">Pilih salah satu paket</span>
+                  </div>
+
+                  {{-- Daftar Kartu Paket (Sesuai Gaya Kartu Hijau Pilihan) --}}
+                  <div class="space-y-2.5" id="package-options-list">
+                    @foreach($packages as $index => $pkg)
+                      <div 
+                        class="package-card p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer select-none {{ $index === 0 ? 'border-forest-600 bg-forest-50/70 dark:bg-forest-950/40 shadow-warm-sm active-pkg' : 'border-line bg-surface hover:border-forest-300' }}"
+                        data-id="{{ $pkg['id'] ?? 'pkg-'.$index }}"
+                        data-name="{{ $pkg['name'] }}"
+                        data-price="{{ $pkg['price'] }}"
+                      >
+                        <div class="flex items-start justify-between gap-3">
+                          <div class="flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                              <span class="font-bold text-sm pkg-title {{ $index === 0 ? 'text-forest-800 dark:text-sun-300' : 'text-ink' }}">{{ $pkg['name'] }}</span>
+                              @if(!empty($pkg['badge']))
+                                <span class="badge-pill bg-forest-600 text-white text-[9px] font-bold px-2 py-0.5 uppercase tracking-wider rounded-full">
+                                  {{ $pkg['badge'] }}
+                                </span>
+                              @endif
+                            </div>
+                            @if(!empty($pkg['description']))
+                              <p class="text-xs text-ink-muted mt-1 leading-snug">
+                                {{ $pkg['description'] }}
+                              </p>
+                            @endif
+                          </div>
+                          <div class="text-right shrink-0">
+                            <span class="font-serif font-bold text-base sm:text-lg pkg-price {{ $index === 0 ? 'text-forest-700 dark:text-sun-300' : 'text-ink' }}">
+                              Rp {{ number_format($pkg['price'], 0, ',', '.') }}
+                            </span>
+                            <span class="block text-[11px] text-ink-muted mt-0.5">
+                              {{ $pkg['unit'] ?? '/ paket' }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    @endforeach
+                  </div>
+
+                  {{-- Stepper: Mau sedekah berapa paket? --}}
+                  <div class="p-3.5 rounded-2xl bg-paper-warm border border-line flex items-center justify-between gap-3 flex-wrap">
+                    <div>
+                      <span class="block text-xs font-bold text-ink">Mau sedekah berapa paket?</span>
+                      <span class="block text-[11px] text-ink-muted mt-0.5" id="pkg-calc-label">1 paket x Rp {{ number_format($packages[0]['price'] ?? 28000, 0, ',', '.') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button type="button" id="btn-qty-minus" class="w-8 h-8 rounded-xl bg-surface border border-line text-ink font-bold flex items-center justify-center hover:bg-paper-warm active:scale-95 transition-all text-sm">-</button>
+                      <span id="pkg-qty-text" class="w-8 text-center font-bold text-sm text-ink font-mono">1</span>
+                      <button type="button" id="btn-qty-plus" class="w-8 h-8 rounded-xl bg-surface border border-line text-ink font-bold flex items-center justify-center hover:bg-paper-warm active:scale-95 transition-all text-sm">+</button>
+                    </div>
+                  </div>
+
+                  {{-- Pilihan Cepat Jumlah Paket --}}
+                  <div class="flex items-center gap-2 pt-0.5">
+                    <span class="text-[11px] text-ink-muted font-medium mr-0.5">Jumlah:</span>
+                    @foreach([1, 2, 5, 10] as $q)
+                      <button type="button" class="btn-quick-qty px-2.5 py-1 rounded-xl bg-surface border border-line text-[11px] font-bold text-ink hover:border-forest-500 hover:text-forest-700 transition-all {{ $q === 1 ? 'border-forest-500 bg-forest-50/50 text-forest-700' : '' }}" data-qty="{{ $q }}">
+                        {{ $q }} Paket
+                      </button>
+                    @endforeach
+                  </div>
+
+                  {{-- Total Donasi Paket Banner --}}
+                  <div class="p-3.5 rounded-2xl bg-forest-900 text-white flex items-center justify-between shadow-warm-sm">
+                    <span class="text-xs text-forest-200">Total Donasi Paket:</span>
+                    <span class="font-serif font-bold text-lg text-sun-300" id="pkg-total-display">Rp {{ number_format($packages[0]['price'] ?? 28000, 0, ',', '.') }}</span>
+                  </div>
+                </div>
+
+                {{-- 3B. FORM MODE MINIMAL DONASI --}}
+                <div id="section-nominal-mode" class="space-y-3 pt-3 border-t border-line-soft {{ ($initialMode !== 'nominal') ? 'hidden' : '' }}">
+                  <div class="flex items-center justify-between">
+                    <label class="block text-xs font-semibold text-ink">Mau donasi berapa?</label>
+                    <span class="text-[11px] font-semibold text-accent-primary bg-tint-primary px-2.5 py-0.5 rounded-full border border-tint-primary-line">
+                      Minimal Rp {{ number_format($minDon, 0, ',', '.') }}
+                    </span>
+                  </div>
+
+                  {{-- Nominal Presets --}}
+                  @php
+                    $presets = array_unique([
+                      $minDon,
+                      max($minDon, 50000),
+                      max($minDon, 100000),
+                      max($minDon, 250000),
+                      max($minDon, 500000),
+                      max($minDon, 1000000),
+                    ]);
+                    sort($presets);
+                    $presets = array_slice($presets, 0, 6);
+                  @endphp
+                  <div class="grid grid-cols-3 gap-2">
+                    @foreach($presets as $idx => $preset)
+                      <button 
+                        type="button" 
+                        class="btn-nominal-preset p-2.5 rounded-xl border border-line bg-surface text-ink text-xs font-bold hover:border-forest-500 hover:bg-forest-50/40 transition-all text-center {{ $idx === 0 ? 'border-primary-500 bg-tint-primary/50 text-accent-primary shadow-warm-sm active-preset' : '' }}" 
+                        data-amount="{{ $preset }}"
+                      >
+                        Rp {{ number_format($preset, 0, ',', '.') }}
+                      </button>
+                    @endforeach
+                  </div>
+
+                  {{-- Custom Amount Input --}}
+                  <div>
+                    <div class="relative">
+                      <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-ink-muted">Rp</span>
+                      <input 
+                        type="number" 
+                        id="input-custom-nominal" 
+                        placeholder="Atau ketik nominal lainnya..." 
+                        min="{{ $minDon }}" 
+                        step="1000" 
+                        class="input-premium pl-10 transition-all" 
+                      />
+                    </div>
+                    <p id="nominal-min-warning" class="hidden text-[11px] text-red-500 font-medium flex items-center gap-1.5 pt-1.5">
+                      <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                      <span>Nominal donasi minimal sebesar Rp {{ number_format($minDon, 0, ',', '.') }}</span>
+                    </p>
+                  </div>
+                </div>
+
+                {{-- 4. SUBMIT BUTTON --}}
+                <div class="pt-2">
+                  <button type="submit"
+                    id="btn-submit-donation"
+                    class="btn-pill btn-primary w-full !py-3.5 text-sm font-bold shadow-warm-lg flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    <span>Lanjutkan Pembayaran</span>
+                  </button>
+                </div>
 
                 <p class="text-center text-[10px] text-ink-muted flex items-center justify-center gap-1.5">
                   <svg class="w-3 h-3 text-accent-forest" fill="currentColor" viewBox="0 0 20 20">
@@ -334,48 +491,241 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('inline-donation-form');
+      const modeInput = document.getElementById('inline-donation-mode');
       const amountInput = document.getElementById('inline-amount');
-      const impactLabel = document.getElementById('inline-impact-label');
-      const buttons = document.querySelectorAll('.inline-nominal');
+      const pkgNameInput = document.getElementById('inline-package-name');
+      const pkgQtyInput = document.getElementById('inline-package-qty');
+      
+      const tabPackage = document.getElementById('tab-mode-package');
+      const tabNominal = document.getElementById('tab-mode-nominal');
+      const secPackage = document.getElementById('section-package-mode');
+      const secNominal = document.getElementById('section-nominal-mode');
+
+      const packageCards = document.querySelectorAll('.package-card');
+      const qtyMinusBtn = document.getElementById('btn-qty-minus');
+      const qtyPlusBtn = document.getElementById('btn-qty-plus');
+      const qtyText = document.getElementById('pkg-qty-text');
+      const quickQtyBtns = document.querySelectorAll('.btn-quick-qty');
+      const pkgCalcLabel = document.getElementById('pkg-calc-label');
+      const pkgTotalDisplay = document.getElementById('pkg-total-display');
+
+      const presetBtns = document.querySelectorAll('.btn-nominal-preset');
+      const customNominalInput = document.getElementById('input-custom-nominal');
+      const minWarning = document.getElementById('nominal-min-warning');
+      const minDonation = {{ (int) $minDon }};
+
       const anon = document.getElementById('inline-anon');
       const nameField = document.querySelector('#inline-donation-form input[name="name"]');
       const copyBtn = document.getElementById('copy-link');
       const copyText = document.getElementById('copy-link-text');
 
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          buttons.forEach(b => {
-            b.classList.remove('border-primary-500', 'bg-tint-primary/50', 'shadow-warm-sm');
-            b.classList.add('border-line', 'bg-surface');
+      let currentMode = modeInput ? modeInput.value : '{{ $initialMode }}';
+      let selectedPackagePrice = 0;
+      let selectedPackageName = '';
+      let packageQty = 1;
+      let nominalAmount = {{ (int) ($presets[0] ?? $minDon) }};
+
+      function formatRupiah(num) {
+        return new Intl.NumberFormat('id-ID').format(num);
+      }
+
+      // Initialize selected package from DOM
+      const activePkgCard = document.querySelector('.package-card.active-pkg') || packageCards[0];
+      if (activePkgCard) {
+        selectedPackagePrice = parseInt(activePkgCard.dataset.price, 10) || 0;
+        selectedPackageName = activePkgCard.dataset.name || '';
+        if (pkgNameInput) pkgNameInput.value = selectedPackageName;
+      }
+
+      function updatePackageCalculation() {
+        const total = selectedPackagePrice * packageQty;
+        if (qtyText) qtyText.textContent = packageQty;
+        if (pkgQtyInput) pkgQtyInput.value = packageQty;
+        if (pkgCalcLabel) {
+          pkgCalcLabel.textContent = `${packageQty} paket x Rp ${formatRupiah(selectedPackagePrice)}`;
+        }
+        if (pkgTotalDisplay) {
+          pkgTotalDisplay.textContent = `Rp ${formatRupiah(total)}`;
+        }
+        if (currentMode === 'package') {
+          if (amountInput) amountInput.value = total;
+        }
+      }
+
+      function switchMode(newMode) {
+        currentMode = newMode;
+        if (modeInput) modeInput.value = newMode;
+
+        if (newMode === 'package') {
+          if (secPackage) secPackage.classList.remove('hidden');
+          if (secNominal) secNominal.classList.add('hidden');
+
+          if (tabPackage) {
+            tabPackage.className = "flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-surface text-forest-700 dark:text-sun-300 shadow-warm-sm border border-line";
+          }
+          if (tabNominal) {
+            tabNominal.className = "flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-ink-muted hover:text-ink";
+          }
+          updatePackageCalculation();
+        } else {
+          if (secPackage) secPackage.classList.add('hidden');
+          if (secNominal) secNominal.classList.remove('hidden');
+
+          if (tabNominal) {
+            tabNominal.className = "flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-surface text-forest-700 dark:text-sun-300 shadow-warm-sm border border-line";
+          }
+          if (tabPackage) {
+            tabPackage.className = "flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-ink-muted hover:text-ink";
+          }
+          if (amountInput) amountInput.value = nominalAmount;
+        }
+      }
+
+      tabPackage?.addEventListener('click', () => switchMode('package'));
+      tabNominal?.addEventListener('click', () => switchMode('nominal'));
+
+      // Package Card Selection
+      packageCards.forEach(card => {
+        card.addEventListener('click', () => {
+          packageCards.forEach(c => {
+            c.classList.remove('border-forest-600', 'bg-forest-50/70', 'dark:bg-forest-950/40', 'shadow-warm-sm', 'active-pkg');
+            c.classList.add('border-line', 'bg-surface');
+            const titleEl = c.querySelector('.pkg-title');
+            const priceEl = c.querySelector('.pkg-price');
+            if (titleEl) {
+              titleEl.classList.remove('text-forest-800', 'dark:text-sun-300');
+              titleEl.classList.add('text-ink');
+            }
+            if (priceEl) {
+              priceEl.classList.remove('text-forest-700', 'dark:text-sun-300');
+              priceEl.classList.add('text-ink');
+            }
           });
-          btn.classList.remove('border-line', 'bg-surface');
-          btn.classList.add('border-primary-500', 'bg-tint-primary/50', 'shadow-warm-sm');
-          if (amountInput) amountInput.value = btn.dataset.amount;
-          if (impactLabel) impactLabel.textContent = btn.dataset.impact;
+
+          card.classList.remove('border-line', 'bg-surface');
+          card.classList.add('border-forest-600', 'bg-forest-50/70', 'dark:bg-forest-950/40', 'shadow-warm-sm', 'active-pkg');
+          const titleEl = card.querySelector('.pkg-title');
+          const priceEl = card.querySelector('.pkg-price');
+          if (titleEl) {
+            titleEl.classList.remove('text-ink');
+            titleEl.classList.add('text-forest-800', 'dark:text-sun-300');
+          }
+          if (priceEl) {
+            priceEl.classList.remove('text-ink');
+            priceEl.classList.add('text-forest-700', 'dark:text-sun-300');
+          }
+
+          selectedPackagePrice = parseInt(card.dataset.price, 10) || 0;
+          selectedPackageName = card.dataset.name || '';
+          if (pkgNameInput) pkgNameInput.value = selectedPackageName;
+          updatePackageCalculation();
         });
       });
 
-      amountInput?.addEventListener('input', () => {
-        buttons.forEach(b => {
-          b.classList.remove('border-primary-500', 'bg-tint-primary/50', 'shadow-warm-sm');
-          b.classList.add('border-line', 'bg-surface');
-        });
-        if (impactLabel) impactLabel.textContent = 'Nominal pilihanmu';
+      // Stepper
+      qtyMinusBtn?.addEventListener('click', () => {
+        if (packageQty > 1) {
+          packageQty--;
+          updateQuickQtyHighlight();
+          updatePackageCalculation();
+        }
       });
 
+      qtyPlusBtn?.addEventListener('click', () => {
+        packageQty++;
+        updateQuickQtyHighlight();
+        updatePackageCalculation();
+      });
+
+      function updateQuickQtyHighlight() {
+        quickQtyBtns.forEach(btn => {
+          const q = parseInt(btn.dataset.qty, 10);
+          if (q === packageQty) {
+            btn.classList.add('border-forest-500', 'bg-forest-50/50', 'text-forest-700');
+          } else {
+            btn.classList.remove('border-forest-500', 'bg-forest-50/50', 'text-forest-700');
+          }
+        });
+      }
+
+      quickQtyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          packageQty = parseInt(btn.dataset.qty, 10) || 1;
+          updateQuickQtyHighlight();
+          updatePackageCalculation();
+        });
+      });
+
+      // Nominal Presets
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          presetBtns.forEach(b => {
+            b.classList.remove('border-primary-500', 'bg-tint-primary/50', 'text-accent-primary', 'shadow-warm-sm', 'active-preset');
+            b.classList.add('border-line', 'bg-surface', 'text-ink');
+          });
+          btn.classList.remove('border-line', 'bg-surface', 'text-ink');
+          btn.classList.add('border-primary-500', 'bg-tint-primary/50', 'text-accent-primary', 'shadow-warm-sm', 'active-preset');
+
+          if (customNominalInput) {
+            customNominalInput.value = '';
+            customNominalInput.classList.remove('border-red-500', 'focus:border-red-500');
+          }
+          if (minWarning) minWarning.classList.add('hidden');
+
+          nominalAmount = parseInt(btn.dataset.amount, 10) || minDonation;
+          if (currentMode === 'nominal' && amountInput) {
+            amountInput.value = nominalAmount;
+          }
+        });
+      });
+
+      // Custom Nominal Input
+      customNominalInput?.addEventListener('input', () => {
+        // Deselect presets
+        presetBtns.forEach(b => {
+          b.classList.remove('border-primary-500', 'bg-tint-primary/50', 'text-accent-primary', 'shadow-warm-sm', 'active-preset');
+          b.classList.add('border-line', 'bg-surface', 'text-ink');
+        });
+
+        const val = parseInt(customNominalInput.value, 10) || 0;
+        if (customNominalInput.value !== '' && val < minDonation) {
+          if (minWarning) minWarning.classList.remove('hidden');
+          customNominalInput.classList.add('border-red-500');
+        } else {
+          if (minWarning) minWarning.classList.add('hidden');
+          customNominalInput.classList.remove('border-red-500');
+        }
+
+        nominalAmount = val;
+        if (currentMode === 'nominal' && amountInput) {
+          amountInput.value = nominalAmount;
+        }
+      });
+
+      // Initial state calculation
+      if (currentMode === 'package') {
+        updatePackageCalculation();
+      } else {
+        if (amountInput) amountInput.value = nominalAmount;
+      }
+
+      // Anonymous toggle
       anon?.addEventListener('change', () => {
         if (!nameField) return;
         if (anon.checked) {
           nameField.value = 'Hamba Allah';
-          nameField.disabled = true;
-          nameField.classList.add('bg-block', 'opacity-70');
+          nameField.readOnly = true;
+          nameField.classList.add('bg-paper-warm', 'text-ink-muted', 'cursor-not-allowed');
         } else {
           nameField.value = '';
-          nameField.disabled = false;
-          nameField.classList.remove('bg-block', 'opacity-70');
+          nameField.readOnly = false;
+          nameField.classList.remove('bg-paper-warm', 'text-ink-muted', 'cursor-not-allowed');
+          nameField.focus();
         }
       });
 
+      // Copy link
       copyBtn?.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(window.location.href);
@@ -387,12 +737,38 @@
         }
       });
 
+      // Validation before triggering QRIS modal
+      form?.addEventListener('submit', (e) => {
+        if (currentMode === 'nominal') {
+          const val = parseInt(amountInput ? amountInput.value : 0, 10) || 0;
+          if (val < minDonation) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if (minWarning) minWarning.classList.remove('hidden');
+            if (customNominalInput) {
+              customNominalInput.focus();
+              customNominalInput.classList.add('border-red-500');
+            }
+            return false;
+          }
+        }
+      }, true);
+
       // Inisialisasi Modal QRIS Langsung
       if (window.initQrisPayment) {
         window.initQrisPayment(
           '#inline-donation-form',
-          () => document.getElementById('inline-amount')?.value || 50000,
-          () => {!! json_encode($campaign['title'] ?? 'Donasi Pelita Bahagia') !!}
+          () => {
+            const val = parseInt(document.getElementById('inline-amount')?.value, 10);
+            return val > 0 ? val : 50000;
+          },
+          () => {
+            const title = {!! json_encode($campaign['title'] ?? 'Donasi Pelita Bahagia') !!};
+            if (currentMode === 'package' && selectedPackageName) {
+              return `${title} (${packageQty}x ${selectedPackageName})`;
+            }
+            return title;
+          }
         );
       }
     });

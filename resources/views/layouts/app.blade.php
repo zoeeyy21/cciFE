@@ -44,7 +44,6 @@
           ['label' => 'Tentang',  'url' => '/tentang',  'active' => request()->is('tentang')],
           ['label' => 'Program',  'url' => '/program',  'active' => request()->is('program*')],
           ['label' => 'Kegiatan', 'url' => '/kegiatan', 'active' => request()->is('kegiatan*')],
-          ['label' => 'Galeri',   'url' => '/galeri',   'active' => request()->is('galeri')],
           ['label' => 'Kontak',   'url' => '/kontak',   'active' => request()->is('kontak')],
         ];
       @endphp
@@ -194,7 +193,6 @@
           <li><a href="{{ url('/tentang') }}" class="hover:text-sun-300 transition-colors">Tentang Kami</a></li>
           <li><a href="{{ url('/program') }}" class="hover:text-sun-300 transition-colors">Program Bantuan</a></li>
           <li><a href="{{ url('/kegiatan') }}" class="hover:text-sun-300 transition-colors">Berita & Kegiatan</a></li>
-          <li><a href="{{ url('/galeri') }}" class="hover:text-sun-300 transition-colors">Dokumentasi Galeri</a></li>
           <li><a href="{{ url('/kontak') }}" class="hover:text-sun-300 transition-colors">Hubungi Kami</a></li>
         </ul>
       </div>

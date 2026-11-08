@@ -108,30 +108,70 @@ function cciCampaign(array $c): array
 {
     $categories = cciCampaignCategories();
 
+    $defaultPackages = [
+        [
+            'id'          => 'pkg-1',
+            'name'        => 'Paket Peduli Anak',
+            'price'       => 28000,
+            'unit'        => '/ paket',
+            'badge'       => 'TERMURAH',
+            'description' => 'Paket bantuan kebutuhan dasar anak penerima manfaat'
+        ],
+        [
+            'id'          => 'pkg-2',
+            'name'        => 'Paket Berdaya Bersama',
+            'price'       => 75000,
+            'unit'        => '/ paket',
+            'badge'       => 'FAVORIT',
+            'description' => 'Dukungan perlengkapan dan nutrisi sehat komplit'
+        ],
+        [
+            'id'          => 'pkg-3',
+            'name'        => 'Paket Harapan Juara',
+            'price'       => 150000,
+            'unit'        => '/ paket',
+            'badge'       => 'LENGKAP',
+            'description' => 'Paket pendampingan penuh dan fasilitas berkelanjutan'
+        ],
+    ];
+
+    $packages = is_array($c['packages'] ?? null) && count($c['packages']) > 0
+        ? $c['packages']
+        : $defaultPackages;
+
+    $donationType = $c['donation_type'] ?? 'both'; // 'package', 'nominal', 'both'
+    $minDonation = (int) ($c['min_donation'] ?? 28000);
+
     return array_merge([
-        'slug'         => '',
-        'title'        => '',
-        'summary'      => '',
-        'category'     => 'pendidikan',
-        'organization' => '',
-        'location'     => '',
-        'raised'       => 0,
-        'target'       => 0,
-        'donors'       => 0,
-        'days_left'    => 0,
-        'urgent'       => false,
-        'verified'     => false,
-        'story'        => [],
-        'image'        => null,
+        'slug'          => '',
+        'title'         => '',
+        'summary'       => '',
+        'category'      => 'pendidikan',
+        'organization'  => '',
+        'location'      => '',
+        'raised'        => 0,
+        'target'        => 0,
+        'donors'        => 0,
+        'days_left'     => 0,
+        'urgent'        => false,
+        'verified'      => false,
+        'story'         => [],
+        'image'         => null,
+        'donation_type' => $donationType,
+        'min_donation'  => $minDonation,
+        'packages'      => $packages,
     ], $c, [
-        'raised'    => (int) ($c['raised'] ?? 0),
-        'target'    => (int) ($c['target'] ?? 0),
-        'donors'    => (int) ($c['donors'] ?? 0),
-        'days_left' => (int) ($c['days_left'] ?? 0),
-        'urgent'    => (bool) ($c['urgent'] ?? false),
-        'verified'  => (bool) ($c['verified'] ?? false),
-        'story'     => is_array($c['story'] ?? null) ? $c['story'] : [],
-        'category'  => array_key_exists($c['category'] ?? '', $categories) ? $c['category'] : 'pendidikan',
+        'raised'        => (int) ($c['raised'] ?? 0),
+        'target'        => (int) ($c['target'] ?? 0),
+        'donors'        => (int) ($c['donors'] ?? 0),
+        'days_left'     => (int) ($c['days_left'] ?? 0),
+        'urgent'        => (bool) ($c['urgent'] ?? false),
+        'verified'      => (bool) ($c['verified'] ?? false),
+        'story'         => is_array($c['story'] ?? null) ? $c['story'] : [],
+        'category'      => array_key_exists($c['category'] ?? '', $categories) ? $c['category'] : 'pendidikan',
+        'donation_type' => $donationType,
+        'min_donation'  => $minDonation,
+        'packages'      => $packages,
     ]);
 }
 
@@ -170,20 +210,11 @@ function cciActivity(array $a): object
         'summary'      => '',
         'content'      => '',
         'cover'        => null,
+        'gallery'      => [],
     ], $a);
 }
 
-/** Normalisasi satu foto galeri → object. */
-function cciGallery(array $g): object
-{
-    return (object) array_merge([
-        'image'          => null,
-        'activity_title' => 'Dokumentasi Lapangan',
-        'caption'        => '',
-    ], $g);
-}
-
-/** Semua program, kegiatan, dan galeri dalam bentuk object. */
+/** Semua program dan kegiatan dalam bentuk object. */
 function cciPrograms(): array
 {
     return array_map('cciProgram', cciData('programs'));
@@ -194,15 +225,9 @@ function cciActivities(): array
     return array_map('cciActivity', cciData('activities'));
 }
 
-function cciGalleries(): array
-{
-    return array_map('cciGallery', cciData('galleries'));
-}
-
 Route::get('/', fn () => view('home', [
     'programs'   => cciPrograms(),
     'activities' => cciActivities(),
-    'galleries'  => cciGalleries(),
     'campaigns'  => cciCampaigns(),
 ]))->name('home');
 
@@ -217,7 +242,25 @@ Route::get('/program/{slug}', function (string $slug) {
 
     abort_unless($program, 404);
 
-    return view('program.show', ['program' => $program]);
+    // Ambil semua kegiatan terkait yang terafiliasi dengan program ini
+    $relatedActivities = collect(cciActivities())
+        ->filter(function ($activity) use ($program) {
+            $progName = strtolower(trim($program->name ?? ''));
+            $actProgName = strtolower(trim($activity->program_name ?? ''));
+            if ($progName === '' || $actProgName === '') {
+                return false;
+            }
+            return $actProgName === $progName ||
+                   str_contains($actProgName, $progName) ||
+                   str_contains($progName, $actProgName);
+        })
+        ->values()
+        ->all();
+
+    return view('program.show', [
+        'program'           => $program,
+        'relatedActivities' => $relatedActivities,
+    ]);
 })->name('program.show');
 
 Route::get('/kegiatan', fn () => view('kegiatan.index', [
@@ -232,9 +275,9 @@ Route::get('/kegiatan/{slug}', function (string $slug) {
     return view('kegiatan.show', ['activity' => $activity]);
 })->name('kegiatan.show');
 
-Route::get('/galeri', fn () => view('galeri', [
-    'galleries' => cciGalleries(),
-]))->name('galeri');
+// Redirect /galeri ke /kegiatan karena foto galeri sudah disatukan ke detail kegiatan
+Route::redirect('/galeri', '/kegiatan');
+
 
 Route::get('/kontak', fn () => view('kontak', [
     'faqs' => cciData('faqs'),
