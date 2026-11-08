@@ -102,8 +102,8 @@
             @endforeach
           </div>
 
-          <div class="mt-3 relative">
-            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-ink-muted">Rp</span>
+          <div class="mt-3 relative flex items-center">
+            <span class="absolute left-3.5 z-10 text-xs font-bold text-ink-muted select-none pointer-events-none">Rp</span>
             <input type="number" 
                    name="amount" 
                    id="custom-amount-input" 
@@ -111,7 +111,8 @@
                    min="10000" 
                    step="5000" 
                    placeholder="Nominal lainnya (Min. 10.000)" 
-                   class="input-premium pl-9 text-sm font-bold" />
+                   style="padding-left: 2.75rem !important;"
+                   class="input-premium !pl-11 text-sm font-bold" />
           </div>
         </div>
 

@@ -269,7 +269,7 @@
                             <div class="flex items-center gap-2 flex-wrap">
                               <span class="font-bold text-sm pkg-title {{ $index === 0 ? 'text-forest-800 dark:text-sun-300' : 'text-ink' }}">{{ $pkg['name'] }}</span>
                               @if(!empty($pkg['badge']))
-                                <span class="badge-pill bg-forest-600 text-white text-[9px] font-bold px-2 py-0.5 uppercase tracking-wider rounded-full">
+                                <span class="badge-pill bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-[9px] font-bold px-2 py-0.5 uppercase tracking-wider rounded-full shadow-sm">
                                   {{ $pkg['badge'] }}
                                 </span>
                               @endif
@@ -359,15 +359,16 @@
 
                   {{-- Custom Amount Input --}}
                   <div>
-                    <div class="relative">
-                      <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-ink-muted">Rp</span>
+                    <div class="relative flex items-center">
+                      <span class="absolute left-3.5 z-10 text-xs font-bold text-ink-muted select-none pointer-events-none">Rp</span>
                       <input 
                         type="number" 
                         id="input-custom-nominal" 
                         placeholder="Atau ketik nominal lainnya..." 
                         min="{{ $minDon }}" 
                         step="1000" 
-                        class="input-premium pl-10 transition-all" 
+                        style="padding-left: 2.75rem !important;"
+                        class="input-premium !pl-11 transition-all" 
                       />
                     </div>
                     <p id="nominal-min-warning" class="hidden text-[11px] text-red-500 font-medium flex items-center gap-1.5 pt-1.5">
