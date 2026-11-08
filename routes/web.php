@@ -195,6 +195,7 @@ function cciProgram(array $p): object
         'category'    => 'Pendidikan',
         'period'      => 'Periode 2026',
         'image'       => null,
+        'gallery'     => [],
     ], $p);
 }
 

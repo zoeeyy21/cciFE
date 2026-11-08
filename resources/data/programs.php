@@ -29,6 +29,12 @@ return [
         'category'    => 'Pendidikan',
         'period'      => 'Periode 2026',
         'image'       => 'programs/tebar-paket-sekolah.jpg',
+        'gallery'     => [
+            ['image' => 'galleries/tebar-paket-sekolah.jpg', 'caption' => 'Penyaluran Paket Sekolah dan Alat Tulis di Pelosok'],
+            ['image' => 'galleries/tas-sekolah-baru.jpg', 'caption' => 'Senyum Anak-anak Menerima Tas dan Seragam Sekolah Baru'],
+            ['image' => 'galleries/belajar-bersama-relawan.jpg', 'caption' => 'Sesi Belajar Bersama Relawan Pengajar'],
+            ['image' => 'activities/penyaluran-pulau-harapan.jpg', 'caption' => 'Distribusi Bantuan ke Wilayah Kepulauan Terluar'],
+        ],
     ],
 
     [
@@ -41,6 +47,11 @@ return [
         'category'    => 'Pendidikan',
         'period'      => 'Periode 2026',
         'image'       => 'programs/beasiswa-cerdas-pelosok.jpg',
+        'gallery'     => [
+            ['image' => 'galleries/penyerahan-beasiswa.jpg', 'caption' => 'Penyerahan Simbolis Beasiswa Cerdas Pelosok'],
+            ['image' => 'galleries/relawan-mengajar.jpg', 'caption' => 'Pendampingan Belajar Anak Penerima Beasiswa'],
+            ['image' => 'activities/beasiswa-launch.jpg', 'caption' => 'Pemberian Paket Penunjang Pendidikan'],
+        ],
     ],
 
     [
@@ -53,6 +64,11 @@ return [
         'category'    => 'Pendidikan',
         'period'      => '2025–2026',
         'image'       => 'programs/ruang-belajar-cerah.jpg',
+        'gallery'     => [
+            ['image' => 'galleries/renovasi-kelas-selesai.jpg', 'caption' => 'Hasil Renovasi Ruang Kelas Baru yang Nyaman'],
+            ['image' => 'galleries/sudut-baca-desa.jpg', 'caption' => 'Penyediaan Sudut Baca dan Ratusan Buku Cerita'],
+            ['image' => 'activities/renovasi-kelas.jpg', 'caption' => 'Gotong Royong Warga Memperbaiki Sekolah'],
+        ],
     ],
 
     // ── Kesehatan ──────────────────────────────────────────────────────
@@ -66,6 +82,11 @@ return [
         'category'    => 'Kesehatan',
         'period'      => 'Periode 2026',
         'image'       => 'programs/piring-bergizi-anti-stunting.jpg',
+        'gallery'     => [
+            ['image' => 'galleries/makan-bergizi-balai-desa.jpg', 'caption' => 'Pembagian Makanan Bergizi Seimbang untuk Balita'],
+            ['image' => 'galleries/posyandu-ramah-anak.jpg', 'caption' => 'Pemeriksaan Rutin dan Penimbangan Balita'],
+            ['image' => 'campaigns/posyandu.jpg', 'caption' => 'Edukasi Gizi Seimbang bagi Orang Tua'],
+        ],
     ],
 
     [
@@ -78,6 +99,10 @@ return [
         'category'    => 'Kesehatan',
         'period'      => '2025–2026',
         'image'       => 'programs/balai-sehat-desa.jpg',
+        'gallery'     => [
+            ['image' => 'activities/pemeriksaan-kesehatan.jpg', 'caption' => 'Pemeriksaan Kesehatan Gratis oleh Tim Medis'],
+            ['image' => 'galleries/posyandu-ramah-anak.jpg', 'caption' => 'Pelayanan Medis Door-to-Door di Dusun Terpencil'],
+        ],
     ],
 
     // ── Pemberdayaan ───────────────────────────────────────────────────
@@ -91,6 +116,10 @@ return [
         'category'    => 'Pemberdayaan',
         'period'      => 'Periode 2026',
         'image'       => 'programs/ibu-tangguh-ekonomi.jpg',
+        'gallery'     => [
+            ['image' => 'activities/wisuda-jahit.jpg', 'caption' => 'Pelatihan Keterampilan Menjahit untuk Kemandirian Ekonomi'],
+            ['image' => 'galleries/kelas-jahit-ibu.jpg', 'caption' => 'Praktek Produksi Kerajinan Kain Lokal'],
+        ],
     ],
 
     [
@@ -103,6 +132,10 @@ return [
         'category'    => 'Tanggap Bencana',
         'period'      => 'Siaga 2026',
         'image'       => 'programs/tanggap-bencana-pelosok.jpg',
+        'gallery'     => [
+            ['image' => 'activities/banjir-ende.jpg', 'caption' => 'Distribusi Logistik Tanggap Darurat Bencana'],
+            ['image' => 'galleries/air-bersih-desa.jpg', 'caption' => 'Penyediaan Air Bersih di Posko Pengungsian'],
+        ],
     ],
 
     [
