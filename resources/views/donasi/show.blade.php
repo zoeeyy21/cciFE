@@ -223,33 +223,10 @@
                   </div>
                 @endif
 
-                {{-- 2. DATA IDENTITAS DONATUR --}}
-                <div class="space-y-3 pt-1">
-                  <div>
-                    <label class="block text-xs font-semibold text-ink mb-1">Nama Donatur <span class="text-accent-primary">*</span></label>
-                    <input type="text" name="name" id="inline-name" placeholder="Nama Lengkap Anda" value="{{ old('name') }}"
-                      required class="input-premium transition-all" />
-                  </div>
+                {{-- 2. PILIHAN DONASI SESUAI MODE --}}
 
-                  <div>
-                    <label class="block text-xs font-semibold text-ink mb-1">Nomor WhatsApp <span class="text-accent-primary">*</span></label>
-                    <input type="tel" name="phone" id="inline-phone" placeholder="Contoh: 0812xxxxxxxx" value="{{ old('phone') }}"
-                      required class="input-premium" />
-                  </div>
-
-                  <div class="flex items-center gap-2 pt-0.5">
-                    <input type="checkbox" id="inline-anon"
-                      class="rounded text-accent-primary focus:ring-primary-500 w-4 h-4 border-line-strong cursor-pointer">
-                    <label for="inline-anon" class="text-xs text-ink-muted cursor-pointer select-none">
-                      Donasi sebagai <strong class="text-ink font-semibold">Hamba Allah</strong> (Nama disamarkan)
-                    </label>
-                  </div>
-                </div>
-
-                {{-- 3. DI BAWAH FORM NOMOR: PILIHAN DONASI SESUAI MODE --}}
-
-                {{-- 3A. FORM MODE PAKET --}}
-                <div id="section-package-mode" class="space-y-3 pt-3 border-t border-line-soft {{ ($initialMode !== 'package') ? 'hidden' : '' }}">
+                {{-- 2A. FORM MODE PAKET --}}
+                <div id="section-package-mode" class="space-y-3 pt-1 {{ ($initialMode !== 'package') ? 'hidden' : '' }}">
                   <div class="flex items-center justify-between">
                     <label class="block text-xs font-semibold text-ink">Pilih Paket Donasi</label>
                     <span class="text-[11px] text-ink-muted">Pilih salah satu paket</span>
@@ -323,8 +300,8 @@
                   </div>
                 </div>
 
-                {{-- 3B. FORM MODE MINIMAL DONASI --}}
-                <div id="section-nominal-mode" class="space-y-3 pt-3 border-t border-line-soft {{ ($initialMode !== 'nominal') ? 'hidden' : '' }}">
+                {{-- 2B. FORM MODE MINIMAL DONASI --}}
+                <div id="section-nominal-mode" class="space-y-3 pt-1 {{ ($initialMode !== 'nominal') ? 'hidden' : '' }}">
                   <div class="flex items-center justify-between">
                     <label class="block text-xs font-semibold text-ink">Mau donasi berapa?</label>
                     <span class="text-[11px] font-semibold text-accent-primary bg-tint-primary px-2.5 py-0.5 rounded-full border border-tint-primary-line">
@@ -375,6 +352,30 @@
                       <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                       <span>Nominal donasi minimal sebesar Rp {{ number_format($minDon, 0, ',', '.') }}</span>
                     </p>
+                  </div>
+                </div>
+
+                {{-- 3. DATA IDENTITAS DONATUR (Diletakkan sebelum tombol Lanjutkan Pembayaran) --}}
+                <div class="space-y-3 pt-4 border-t border-line-soft">
+                  <label class="block text-xs font-bold text-ink">Informasi Donatur</label>
+                  <div>
+                    <label class="block text-xs font-semibold text-ink-muted mb-1">Nama Donatur <span class="text-accent-primary">*</span></label>
+                    <input type="text" name="name" id="inline-name" placeholder="Nama Lengkap Anda" value="{{ old('name') }}"
+                      required class="input-premium transition-all" />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-ink-muted mb-1">Nomor WhatsApp <span class="text-accent-primary">*</span></label>
+                    <input type="tel" name="phone" id="inline-phone" placeholder="Contoh: 0812xxxxxxxx" value="{{ old('phone') }}"
+                      required class="input-premium" />
+                  </div>
+
+                  <div class="flex items-center gap-2 pt-0.5">
+                    <input type="checkbox" id="inline-anon"
+                      class="rounded text-accent-primary focus:ring-primary-500 w-4 h-4 border-line-strong cursor-pointer">
+                    <label for="inline-anon" class="text-xs text-ink-muted cursor-pointer select-none">
+                      Donasi sebagai <strong class="text-ink font-semibold">Hamba Allah</strong> (Nama disamarkan)
+                    </label>
                   </div>
                 </div>
 
